@@ -40,3 +40,32 @@
 .read-the-docs {
   color: #888;
 }
+
+/* just to try some css variables gpted to see if stuff works, need to change later  */
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.destination-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.destination-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.destination-info {
+  padding: 8px;
+  text-align: center;
+}
+
+.destination-rating {
+  /* Add styles for the rating, such as stars or numerical value */
+}
