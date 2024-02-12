@@ -24,6 +24,21 @@ public class HasVisited {
 
     private int review;
 
+    public HasVisited() {
+
+    }
+
+    public HasVisited(User user, Destination destination) {
+        setUser(user);
+        setDestination(destination);
+    }
+
+    public HasVisited(User user, Destination destination, int review) {
+        setUser(user);
+        setDestination(destination);
+        setReview(review);
+    }
+
     public User getUser() {
         return user;
     }

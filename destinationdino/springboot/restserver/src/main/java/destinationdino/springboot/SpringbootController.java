@@ -16,17 +16,20 @@ public class SpringbootController {
     
     private final DestinationService destinationService;
     private final UserService userService;
+    private final HasVisitedService hasVisitedService; 
 
     @Autowired
-    public SpringbootController(DestinationService destinationService, UserService userService) {
+    public SpringbootController(DestinationService destinationService, UserService userService, HasVisitedService hasVisitedService) {
         this.destinationService = destinationService;
         this.userService = userService;
+        this.hasVisitedService = hasVisitedService;
     }
     
 
     @GetMapping("/destinations")
     public List<Destination> getAllDestinations() {
-        return destinationService.getAllDestinations();
+        List<Destination> result = destinationService.getAllDestinations();
+        return result;
     }
 
     @PostMapping("/destinations")
@@ -44,13 +47,20 @@ public class SpringbootController {
         return userService.createUser(user);
     }
 
+    @GetMapping("/hasVisited")
+    public List<User> getAllHasVisited() {
+        return userService.getAllUsers();
+    }
+
+    @PostMapping("/hasVisited")
+    public HasVisited createHasVisited(@RequestBody HasVisited hasVisited) {
+        return hasVisitedService.createHasVisited(hasVisited);
+    }
+
 
     @RequestMapping("/destinations")
     public ResponseEntity<String> wipeDatabase() {
         return destinationService.deleteAll();
     }
-
-
-
 
 } 

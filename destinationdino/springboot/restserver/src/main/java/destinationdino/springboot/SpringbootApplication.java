@@ -18,7 +18,7 @@ public class SpringbootApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(DestinationRepository destinationRepository, UserRepository userRepository) {
+	public CommandLineRunner initData(DestinationRepository destinationRepository, UserRepository userRepository, HasVisitedRepository hasVisitedRepository) {
 		return args -> {
 			Destination destination1 = new Destination("Cape Town");
 			destinationRepository.save(destination1);
@@ -26,12 +26,17 @@ public class SpringbootApplication {
 			Destination destination2 = new Destination("Paris");
 			destinationRepository.save(destination2);
 
-			User user1 = new User("Joe", false);
+			User user1 = new User("Joe", true);
 			userRepository.save(user1);
 
-			User user2 = new User("Tore", true);
+			User user2 = new User("Nina", false);
 			userRepository.save(user2);
 
+			HasVisited hasVisited1 = new HasVisited(user1, destination1);
+			hasVisitedRepository.save(hasVisited1);
+
+			HasVisited hasVisited2 = new HasVisited(user2, destination2);
+			hasVisitedRepository.save(hasVisited2);
 
 		};
 
