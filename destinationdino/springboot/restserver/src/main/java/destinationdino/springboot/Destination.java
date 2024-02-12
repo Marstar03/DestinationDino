@@ -1,26 +1,38 @@
 package destinationdino.springboot;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "destinations")
 public class Destination {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private String name;
 
-    public Long getId() {
-        return id;
+    private String country;
+    private String picture;
+    private String info;
+
+    public Destination() {
+        
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Destination(String name) {
+        this.name = name;
     }
+
+    public Destination(String name, String country, String picture, String info) {
+        this.name = name;
+    }
+
+    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
+    private List<HasVisited> hasVisitedList;
 
     public String getName() {
         return name;
@@ -30,6 +42,29 @@ public class Destination {
         this.name = name;
     }
 
-    
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     
 }

@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpringbootController {
     
     private final DestinationService destinationService;
+    private final UserService userService;
 
     @Autowired
-    public SpringbootController(DestinationService destinationService) {
+    public SpringbootController(DestinationService destinationService, UserService userService) {
         this.destinationService = destinationService;
+        this.userService = userService;
     }
     
 
@@ -31,6 +33,17 @@ public class SpringbootController {
     public Destination createDestination(@RequestBody Destination destination) {
         return destinationService.createDestination(destination);
     }
+
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @PostMapping("/users")
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
 
     @RequestMapping("/destinations")
     public ResponseEntity<String> wipeDatabase() {
