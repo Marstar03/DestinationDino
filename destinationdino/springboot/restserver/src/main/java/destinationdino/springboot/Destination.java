@@ -34,8 +34,10 @@ public class Destination {
         setInfo(info);
     }
 
+
+
     @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
-    private List<HasVisited> hasVisitedList;
+    private transient List<HasVisited> hasVisitedList;
 
     public String getName() {
         return name;
