@@ -2,6 +2,7 @@ package destinationdino.springboot;
 
 import java.util.List;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @RestController
 public class SpringbootController {
@@ -29,7 +29,16 @@ public class SpringbootController {
         return destinationService.getAllDestinations();
     }
 
-    @PostMapping("/destinations")
+    @GetMapping("/destinationInfo")
+    public Destination getSpecificDestination(@RequestBody String id) {
+        Optional<Destination> specificDestination = destinationService.getDestinationByID(id);
+        if (specificDestination.isEmpty()) {
+            return null;  
+        }
+        return specificDestination.get();
+    }
+
+    @PostMapping("/addDestination")
     public Destination createDestination(@RequestBody Destination destination) {
         return destinationService.createDestination(destination);
     }
@@ -39,18 +48,17 @@ public class SpringbootController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    @PostMapping("/login")
+    public void createUserIfNew(@RequestBody User user) {
+        Optional<User> userById = userService.getUserByID(user.getUsername()); 
+        if (userById.isEmpty()) {
+            userService.createUser(user);
+        }
     }
 
-
-    @RequestMapping("/destinations")
+    @RequestMapping("/deleteAllDestinations")
     public ResponseEntity<String> wipeDatabase() {
         return destinationService.deleteAll();
     }
-
-
-
 
 } 

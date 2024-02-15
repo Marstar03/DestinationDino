@@ -1,6 +1,7 @@
 package destinationdino.springboot;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,11 @@ public class DestinationService {
 
     public List<Destination> getAllDestinations() {
         return destinationRepository.findAll();
+    }
+
+    public Optional<Destination> getDestinationByID(String id) {
+        Optional<Destination> result = destinationRepository.findById(id);
+        return result;
     }
 
     @Transactional
