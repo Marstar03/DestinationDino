@@ -25,23 +25,23 @@ public class User {
     }
 
     public User(String username, boolean isAdmin) {
-        this.username = username;
+        setUsername(username);
         if (isAdmin == true || isAdmin == false) {
             this.isAdmin = isAdmin;
         }
     }
 
     public User(String username, String password, String profilePicture, boolean isAdmin) {
-        this.username = username;
-        this.password = password;
-        this.profilePicture = profilePicture;
+        setUsername(username);
+        setPassword(password);
+        setProfilePicture(profilePicture);
         if (isAdmin == true || isAdmin == false) {
             this.isAdmin = isAdmin;
         }
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<HasVisited> hasVisitedList;
+    private transient List<HasVisited> hasVisitedList;
 
     public String getUsername() {
         return username;

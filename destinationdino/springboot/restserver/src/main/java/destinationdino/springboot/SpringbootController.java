@@ -16,17 +16,20 @@ public class SpringbootController {
     
     private final DestinationService destinationService;
     private final UserService userService;
+    private final HasVisitedService hasVisitedService; 
 
     @Autowired
-    public SpringbootController(DestinationService destinationService, UserService userService) {
+    public SpringbootController(DestinationService destinationService, UserService userService, HasVisitedService hasVisitedService) {
         this.destinationService = destinationService;
         this.userService = userService;
+        this.hasVisitedService = hasVisitedService;
     }
     
 
     @GetMapping("/destinations")
     public List<Destination> getAllDestinations() {
-        return destinationService.getAllDestinations();
+        List<Destination> result = destinationService.getAllDestinations();
+        return result;
     }
 
     @GetMapping("/destinationInfo")

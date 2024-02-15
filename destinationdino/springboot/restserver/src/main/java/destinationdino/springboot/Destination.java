@@ -24,15 +24,20 @@ public class Destination {
     }
 
     public Destination(String name) {
-        this.name = name;
+        setName(name);
     }
 
     public Destination(String name, String country, String picture, String info) {
-        this.name = name;
+        setName(name);
+        setCountry(country);
+        setPicture(picture);
+        setInfo(info);
     }
 
+
+
     @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
-    private List<HasVisited> hasVisitedList;
+    private transient List<HasVisited> hasVisitedList;
 
     public String getName() {
         return name;
