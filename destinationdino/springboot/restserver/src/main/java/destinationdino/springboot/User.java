@@ -40,7 +40,7 @@ public class User {
         }
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private transient List<HasVisited> hasVisitedList;
 
     public String getUsername() {
