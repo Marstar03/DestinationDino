@@ -1,0 +1,71 @@
+{
+    "destinations": [
+      {
+        "name": "Eiffel Tower",
+        "country": "France",
+        "picture": "https://images.pexels.com/photos/1850619/pexels-photo-1850619.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France."
+      },
+      {
+        "name": "Cape Town",
+        "country": "South Africa",
+        "picture": "https://images.pexels.com/photos/625414/pexels-photo-625414.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "Cape Town is a port city on South Africa’s southwest coast, on a peninsula beneath the imposing Table Mountain."
+      },
+      {
+        "name": "Great Wall of China",
+        "country": "China",
+        "picture": "https://images.pexels.com/photos/2412603/pexels-photo-2412603.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "The Great Wall of China is a series of fortifications that were built across the historical northern borders of ancient Chinese states and Imperial China."
+      },
+      {
+        "name": "Statue of Liberty",
+        "country": "USA",
+        "picture": "https://images.pexels.com/photos/69205/pexels-photo-69205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "The Statue of Liberty is a colossal neoclassical sculpture on Liberty Island in New York Harbor within New York City."
+      },
+      {
+        "name": "Taj Mahal",
+        "country": "India",
+        "picture": "https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "The Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra."
+      },
+      {
+        "name": "Colosseum",
+        "country": "Italy",
+        "picture": "https://images.pexels.com/photos/2225439/pexels-photo-2225439.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "The Colosseum is an oval amphitheatre in the centre of the city of Rome, Italy."
+      },
+      {
+        "name": "Machu Picchu",
+        "country": "Peru",
+        "picture": "https://images.pexels.com/photos/2929906/pexels-photo-2929906.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "Machu Picchu is an Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley."
+      },
+      {
+        "name": "Pyramids of Giza",
+        "country": "Egypt",
+        "picture": "https://images.pexels.com/photos/6716161/pexels-photo-6716161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "The Pyramids of Giza, located on the outskirts of Cairo, are the only remaining wonder of the Seven Wonders of the Ancient World."
+      },
+      {
+        "name": "Sydney Opera House",
+        "country": "Australia",
+        "picture": "https://images.pexels.com/photos/1878293/pexels-photo-1878293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "The Sydney Opera House is a multi-venue performing arts centre at Sydney Harbour in Sydney, New South Wales, Australia."
+      },
+      {
+        "name": "Mount Fuji",
+        "country": "Japan",
+        "picture": "https://images.pexels.com/photos/3408353/pexels-photo-3408353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "Mount Fuji is Japan's tallest peak and one of its most iconic symbols, located on Honshu Island."
+      },
+      {
+        "name": "Christ the Redeemer",
+        "country": "Brazil",
+        "picture": "https://images.pexels.com/photos/2818895/pexels-photo-2818895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "info": "Christ the Redeemer is an Art Deco statue of Jesus Christ in Rio de Janeiro, Brazil, created by French sculptor Paul Landowski."
+      }
+    ]
+  }
+  
