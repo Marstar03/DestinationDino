@@ -6,7 +6,7 @@ export function getRequest(apiUrl: any) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        setLoading(true); // Set loading to true when the effect starts
+        setLoading(true);
 
         fetch(apiUrl)
             .then(response => {
@@ -17,13 +17,13 @@ export function getRequest(apiUrl: any) {
             })
             .then(data => {
                 setData(data);
-                setLoading(false); // Set loading to false when data is fetched successfully
+                setLoading(false);
             })
             .catch(error => {
                 setError(error);
-                setLoading(false); // Set loading to false when an error occurs
+                setLoading(false);
             });
-    }, [apiUrl]); // Execute effect only when apiUrl changes
+    }, [apiUrl]);
 
     return { data, loading, error };
 }

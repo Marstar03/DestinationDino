@@ -6,8 +6,7 @@ export function postRequest(apiUrl: any) {
     const [error, setError] = useState(null);
 
     const postData = async (requestData: any) => {
-        setLoading(true); // Set loading to true when the request starts
-
+        setLoading(true);
         try {
             const response = await fetch(apiUrl, {
                 method: 'POST',
@@ -20,15 +19,13 @@ export function postRequest(apiUrl: any) {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
             const responseData = await response.json();
             setData(responseData);
-            setLoading(false); // Set loading to false when the request is completed
-        } catch (error) {
+            setLoading(false);
+        } catch (error: any) {
             setError(error);
-            setLoading(false); // Set loading to false when an error occurs
+            setLoading(false);
         }
     };
-
     return { postData, data, loading, error };
 }

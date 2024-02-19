@@ -1,29 +1,23 @@
-import DestinationGrid from "../components/DestinationGrid";
-import destinationImage from "../assets/bilde1.jpg";
-import destinationImage2 from "../assets/bilde2.jpg";
-
-// Example destinations
-const destinations = [
-  { image: destinationImage, name: "Destination 1", rating: 4.5 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-  { image: destinationImage2, name: "Destination 2", rating: 4.7 },
-];
+import React, { useState, useEffect } from 'react';
+import DestinationGrid from '../components/DestinationGrid';
+import { getRequest } from '../httpMethods/getRequest';
 
 export default function Home() {
-  return (
-    <>
-      <div>
-        <DestinationGrid destinations={destinations} />
-      </div>
-    </>
-  );
+    const apiUrl = 'http://localhost:8080/destinations';
+    const { data: destinations, loading, error } = getRequest(apiUrl);
+
+    if (loading) {
+        return <div>Loading destinations...</div>;
+    }
+
+    if (error) {
+        return <div>Error fetching destinations: {error}</div>;
+    }
+
+    return (
+        <div>
+            <h2>Destinations</h2>
+            <DestinationGrid destinations={destinations} />
+        </div>
+    );
 }

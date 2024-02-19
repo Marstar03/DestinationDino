@@ -1,20 +1,23 @@
+import DefaultDestination from "../assets/DefaultDestination.jpg";
+
 export interface DestinationProps {
-  image: string;
   name: string;
-  rating: number;
+  country: string;
+  picture: string;
 }
 
 const DestinationBox: React.FC<DestinationProps> = ({
-  image,
   name,
-  rating,
+  country,
+  picture,
 }) => {
   return (
     <div className="destination-box">
-      <img src={image} alt={name} />
+      <img src={picture != null? picture : DefaultDestination} alt={name} style={{ maxHeight: '100px', minHeight: '100px' }} />
       <div className="destination-info">
         <h3>{name}</h3>
-        <span className="destination-rating">{rating}</span>
+        <h4>{country}</h4>
+        <span className="destination-rating">{3.5}/5</span>
       </div>
     </div>
   );
