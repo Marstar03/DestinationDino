@@ -1,6 +1,7 @@
 package destinationdino.springboot;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,11 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public Optional<User> getUserByID(String id) {
+        Optional<User> userById = userRepository.findById(id); 
+        return userById; 
     }
 
     @Transactional
