@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -23,12 +21,28 @@ function Copyright(props: any) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        DestinationDino
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
   );
+}
+
+async function fetchData(parameter1: string, parameter2: string) {
+  const apiUrl = `http://localhost:8080/login?username=${parameter1}&password=${parameter2}`;
+
+  try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data); // Process the fetched data
+  } catch (error) {
+      console.error('Error fetching data:', error);
+  }
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -38,10 +52,11 @@ export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const username = data.get("username") as string;
+    const password = data.get("password") as string;
+    console.log(username);
+    console.log(password);
+    fetchData(username, password);
   };
 
   return (
@@ -72,10 +87,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -88,10 +103,6 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -101,13 +112,8 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/SignUpSide" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
