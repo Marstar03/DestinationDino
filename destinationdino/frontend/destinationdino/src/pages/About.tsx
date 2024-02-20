@@ -13,8 +13,8 @@ export default function AddUserForm() {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         try {
-            const userData = JSON.parse(userDataJson); // Parse the JSON input into an object
-            postData(userData); // Call postData function with user data to send the POST request
+            const userData = JSON.parse(userDataJson);
+            postData(userData);
         } catch (error) {
             console.error('Error parsing JSON:', error);
         }
@@ -25,7 +25,7 @@ export default function AddUserForm() {
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return <div>Error: {error}</div>;
     }
 
     return (

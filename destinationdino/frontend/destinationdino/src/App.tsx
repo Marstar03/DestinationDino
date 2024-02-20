@@ -6,6 +6,7 @@ import DestinationInformation from "./pages/DestinationInformation";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import SignInSide from "./pages/SignInSide";
+import SignUpSide from "./pages/SignUpSide";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/about" element={<About />} />
-          <Route path="/SignInSide" element={<SignInSide />} /> // Fixed the path to "/SignInSide"
+          <Route path="/SigninSide" element={<SignInSide />} />
+          <Route path="/SignupSide" element={<SignUpSide />} />
         </Routes>
       </div>
       
