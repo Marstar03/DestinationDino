@@ -34,7 +34,7 @@ public class User {
         }
     }
 
-    public User(String username, String password, String email, int profilePicture, boolean isAdmin) {
+    public User(String username, String password, String email, Integer profilePicture, boolean isAdmin) {
         setUsername(username);
         setPassword(password);
         setEmail(email);
@@ -71,11 +71,11 @@ public class User {
         this.email = email;
     }
 
-    public int getProfilePicture() {
+    public Integer getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(int profilePicture) {
+    public void setProfilePicture(Integer profilePicture) {
         this.profilePicture = profilePicture;
     }
 
