@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import BoxForDestinationInfo from './BoxForDestinationInfo';
-import { getRequest } from '../httpMethods/getRequest';
+import { fetchData } from '../httpMethods/fetchData';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
-
-
-const apiUrl = 'http://localhost:8080/destinations';
 
 const DestinationInfoPage: React.FC = () => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
+    // Assuming you have the destination ID from somewhere (state, props, URL parameters, etc.)
+    // For demonstration, let's assume it's hardcoded. Replace with actual dynamic ID as needed.
+    const destinationId = 'Paris';
 
     useEffect(() => {
         setLoading(true);
-        getRequest(apiUrl)
+        // Update the URL to include the destination ID in the path
+        const apiUrl = `http://localhost:8080/destinations/${destinationId}`;
+
+        fetchData(apiUrl)
             .then(data => {
                 setData(data);
                 setLoading(false);
@@ -25,9 +28,8 @@ const DestinationInfoPage: React.FC = () => {
                 setError(error);
                 setLoading(false);
             });
-    }, []);
+    }, [destinationId]); // This effect depends on destinationId, it re-runs if destinationId changes
 
-    // Check for loading and error states before rendering your components
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error fetching data: {error.message}</p>;
 
@@ -38,13 +40,12 @@ body {
   }
 `;
 
-
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-gap: 10px;
-  max-width: window.innerWidth;
+  max-width: window.innerWidth - 20px;
   margin: 0 auto;
 `;
 
@@ -113,7 +114,7 @@ const Attraction = styled.div`
   
             
             {data && (
-                <BoxForDestinationInfo title="Short Description" content={data ? JSON.stringify(data[0].name) : "N/A"} />
+                <BoxForDestinationInfo title="Short Description" content={data ? JSON.stringify(data) : "N/A"} />
             )}
             
             <h3>Data: {JSON.stringify(data)}</h3>
