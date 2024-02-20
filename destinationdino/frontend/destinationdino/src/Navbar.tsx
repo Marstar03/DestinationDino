@@ -5,12 +5,12 @@ export default function Navbar() {
   return (
     <nav className="nav">
       <Link to="/" className="site-title">
-        Site Name
+        Destination Dino
       </Link>
       <ul>
         <CustomLink to="/profile">Profile</CustomLink>
         <CustomLink to="/about">About</CustomLink>
-        <CustomLink to="/signinSide">SignInSide </CustomLink>
+        <CustomLink to="/signinSide">Sign In </CustomLink>
       </ul>
     </nav>
   );

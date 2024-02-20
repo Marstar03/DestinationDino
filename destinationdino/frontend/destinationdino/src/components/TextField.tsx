@@ -12,7 +12,7 @@ const ProfileTextField: React.FC<TextFieldProps> = ({ label, defaultValue }) => 
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': { m: 1, width: '27ch' },
       }}
       noValidate
       autoComplete="off"
