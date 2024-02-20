@@ -55,9 +55,9 @@ public class SpringbootController {
     }
 
     @PostMapping("/signup")
-    public Boolean signupNewUser(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
+    public Boolean signupNewUser(@RequestBody User user) {
         System.out.println("yay");
-        return userService.signupNewUser(username, password, email, 0);
+        return userService.signupNewUser(user.getUsername(), user.getPassword(), user.getEmail(), 0);
     }
 
     @GetMapping("/login")

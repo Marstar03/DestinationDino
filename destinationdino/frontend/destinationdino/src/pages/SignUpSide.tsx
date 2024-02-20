@@ -25,7 +25,7 @@ function Copyright(props: any) {
   );
 }
 
-async function fetchData(parameter1: string, parameter2: string, parameter3: string) {
+/* async function fetchData(parameter1: string, parameter2: string, parameter3: string) {
   const apiUrl = `http://localhost:8080/signup?username=${parameter1}&email=${parameter2}&password=${parameter3}`;
 
   try {
@@ -39,7 +39,7 @@ async function fetchData(parameter1: string, parameter2: string, parameter3: str
   } catch (error) {
       console.error('Error fetching data:', error);
   }
-}
+} */
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -47,6 +47,7 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const apiUrl = 'http://localhost:8080/signup'; // Update the URL to match your backend endpoint
   const { postData, data, loading, error } = postRequest(apiUrl);
+
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
