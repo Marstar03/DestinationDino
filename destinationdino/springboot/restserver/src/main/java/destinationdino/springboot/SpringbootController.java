@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("http://localhost:5173")
 public class SpringbootController {
-    
+
     private final DestinationService destinationService;
     private final UserService userService;
-    private final HasVisitedService hasVisitedService; 
+    private final HasVisitedService hasVisitedService;
 
     @Autowired
-    public SpringbootController(DestinationService destinationService, UserService userService, HasVisitedService hasVisitedService) {
+    public SpringbootController(DestinationService destinationService, UserService userService,
+            HasVisitedService hasVisitedService) {
         this.destinationService = destinationService;
         this.userService = userService;
         this.hasVisitedService = hasVisitedService;
     }
-    
 
     @GetMapping("/destinations")
     public List<Destination> getAllDestinations() {
@@ -39,14 +39,15 @@ public class SpringbootController {
     public Destination getSpecificDestination(@RequestBody String id) {
         Optional<Destination> specificDestination = destinationService.getDestinationByID(id);
         if (specificDestination.isEmpty()) {
-            return null;  
+            return null;
         }
         return specificDestination.get();
     }
 
     @PostMapping("/addDestination")
-    public Destination createDestination(@RequestBody Destination destination) {
-        return destinationService.createDestination(destination);
+    public Boolean createDestination(@RequestBody Destination destination) {
+        destinationService.createDestination(destination);
+        return true;
     }
 
     @GetMapping("/users")
@@ -72,7 +73,7 @@ public class SpringbootController {
     }
 
     @GetMapping("/logout")
-    public Boolean signupNewUser() {
+    public Boolean logoutUser() {
         System.out.println("Logged out");
         return userService.removeCurrentUser();
     }
@@ -82,4 +83,4 @@ public class SpringbootController {
         return destinationService.deleteAll();
     }
 
-} 
+}

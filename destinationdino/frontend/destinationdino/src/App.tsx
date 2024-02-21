@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./Navbar";
+import Admin from "./components/Admin";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/SigninSide" element={<SignInSide />} />
           <Route path="/SignupSide" element={<SignUpSide />} />
+          <Route path="/Admin" element={<Admin />} />
         </Routes>
       </div>
     </>

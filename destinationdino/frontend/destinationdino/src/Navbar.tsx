@@ -8,8 +8,8 @@ export default function Navbar() {
         Destination Dino
       </Link>
       <ul>
+        <CustomLink to="/admin">Admin</CustomLink>
         <CustomLink to="/profile">Profile</CustomLink>
-        <CustomLink to="/about">About</CustomLink>
         <CustomLink to="/signinSide">Sign In </CustomLink>
       </ul>
     </nav>
