@@ -44,10 +44,11 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+var signetdUp:boolean = true;
+ 
 export default function SignUp() {
-  const apiUrl = 'http://localhost:8080/signup'; // Update the URL to match your backend endpoint
+  const apiUrl = 'http://localhost:8080/signup';
   const { postData, data, loading, error } = postRequest(apiUrl);
-
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,6 +61,9 @@ export default function SignUp() {
     console.log(password);
     //fetchData(username, email, password);
     await postData({ username, email, password });
+    if (signetdUp) {
+      window.location.href='/';
+    }
   };
 
   return (

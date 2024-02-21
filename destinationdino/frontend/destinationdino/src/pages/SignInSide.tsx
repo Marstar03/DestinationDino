@@ -29,19 +29,24 @@ function Copyright(props: any) {
   );
 }
 
+var loggedIn:boolean = true;
+
 async function fetchData(parameter1: string, parameter2: string) {
   const apiUrl = `http://localhost:8080/login?username=${parameter1}&password=${parameter2}`;
 
   try {
       const response = await fetch(apiUrl);
       if (!response.ok) {
+        loggedIn = false;
           throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
+      loggedIn = true;
       console.log(data); // Process the fetched data
   } catch (error) {
       console.error('Error fetching data:', error);
+      loggedIn = false;
   }
 }
 
@@ -57,6 +62,9 @@ export default function SignIn() {
     console.log(username);
     console.log(password);
     fetchData(username, password);
+    if (loggedIn) {
+      window.location.href='/';
+    }
   };
 
   return (

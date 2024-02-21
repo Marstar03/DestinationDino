@@ -71,6 +71,12 @@ public class SpringbootController {
         return userService.getCurrentUser();
     }
 
+    @GetMapping("/logout")
+    public Boolean signupNewUser() {
+        System.out.println("Logged out");
+        return userService.removeCurrentUser();
+    }
+
     @RequestMapping("/deleteAllDestinations")
     public ResponseEntity<String> wipeDatabase() {
         return destinationService.deleteAll();

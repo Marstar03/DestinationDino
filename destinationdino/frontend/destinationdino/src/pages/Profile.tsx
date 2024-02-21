@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserProfile, { UserProfileProps } from '../components/UserProfile';
+import Button from '../components/LogoutButton';
 //import profilePicture from "../assets/TravellingDino.jpg";
 
 /* async function fetchData() {
@@ -47,6 +48,7 @@ const Profile: React.FC = () => {
     <div>
       <h1>Profile</h1>
       <UserProfile {...currentUser} />
+      <Button />
     </div>
   );
 };

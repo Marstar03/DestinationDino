@@ -61,6 +61,11 @@ public class UserService {
         return currentUser;
     }
 
+    public boolean removeCurrentUser() {
+        this.currentUser = null;
+        return true;
+    }
+
     @Transactional
     public User createUser(User user) {
         return userRepository.save(user);
