@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import UserProfile, { UserProfileProps } from '../components/UserProfile';
-import Button from '../components/LogoutButton';
+import React, { useState, useEffect } from "react";
+import UserProfile, { UserProfileProps } from "../components/UserProfile";
+import Button from "../components/LogoutButton";
 //import profilePicture from "../assets/TravellingDino.jpg";
 
 /* async function fetchData() {
@@ -19,7 +19,6 @@ import Button from '../components/LogoutButton';
   }
 } */
 
-
 const Profile: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<UserProfileProps | null>(null);
 
@@ -34,11 +33,14 @@ const Profile: React.FC = () => {
         const userData = await response.json();
         setCurrentUser(userData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }
     fetchData();
   }, []); // Empty dependency array ensures the effect runs only once on component mount
+
+  console.log(currentUser);
+  console.log(currentUser?.admin);
 
   if (!currentUser) {
     return <div>Loading...</div>; // Render loading state while waiting for data
