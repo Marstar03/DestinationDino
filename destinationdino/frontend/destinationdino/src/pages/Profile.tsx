@@ -41,7 +41,7 @@ const Profile: React.FC = () => {
   }, []); // Empty dependency array ensures the effect runs only once on component mount
 
   if (!currentUser) {
-    return <div>Loading...</div>; // Render loading state while waiting for data
+    return <div>You are not logged in</div>; // Render loading state while waiting for data
   }
 
   return (

@@ -10,6 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { UserProfileProps } from "../components/UserProfile";
 
 function Copyright(props: any) {
   return (
@@ -29,24 +30,22 @@ function Copyright(props: any) {
   );
 }
 
-var loggedIn:boolean = true;
 
 async function fetchData(parameter1: string, parameter2: string) {
   const apiUrl = `http://localhost:8080/login?username=${parameter1}&password=${parameter2}`;
-
   try {
       const response = await fetch(apiUrl);
       if (!response.ok) {
-        loggedIn = false;
           throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
-      loggedIn = true;
       console.log(data); // Process the fetched data
+      if (data == true) {
+        window.location.href = "/";
+      }
   } catch (error) {
       console.error('Error fetching data:', error);
-      loggedIn = false;
   }
 }
 
@@ -62,10 +61,30 @@ export default function SignIn() {
     console.log(username);
     console.log(password);
     fetchData(username, password);
-    if (loggedIn) {
-      window.location.href='/';
-    }
   };
+
+  const [currentUser, setCurrentUser] = React.useState<UserProfileProps | null>(null);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const apiUrl = `http://localhost:8080/currentUser`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const userData = await response.json();
+        setCurrentUser(userData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+    fetchData();
+  }, []); // Empty dependency array ensures the effect runs only once on component mount
+
+  if (currentUser) {
+    return <div>You are logged in</div>; // Render loading state while waiting for data
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
