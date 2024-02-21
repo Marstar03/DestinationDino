@@ -3,6 +3,7 @@ package destinationdino.springboot;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -15,9 +16,11 @@ public class User {
     @Id
     private String username;
 
+    @Column(nullable=false)
     private String password;
+    
     private String email;
-    private String profilePicture;
+    private Integer profilePicture;
     private boolean isAdmin;
 
     public User() {
@@ -31,16 +34,17 @@ public class User {
         }
     }
 
-    public User(String username, String password, String profilePicture, boolean isAdmin) {
+    public User(String username, String password, String email, Integer profilePicture, boolean isAdmin) {
         setUsername(username);
         setPassword(password);
+        setEmail(email);
         setProfilePicture(profilePicture);
         if (isAdmin == true || isAdmin == false) {
             this.isAdmin = isAdmin;
         }
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private transient List<HasVisited> hasVisitedList;
 
     public String getUsername() {
@@ -67,11 +71,11 @@ public class User {
         this.email = email;
     }
 
-    public String getProfilePicture() {
+    public Integer getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(String profilePicture) {
+    public void setProfilePicture(Integer profilePicture) {
         this.profilePicture = profilePicture;
     }
 

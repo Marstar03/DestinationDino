@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -53,12 +54,27 @@ public class SpringbootController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/login")
-    public void createUserIfNew(@RequestBody User user) {
-        Optional<User> userById = userService.getUserByID(user.getUsername()); 
-        if (userById.isEmpty()) {
-            userService.createUser(user);
-        }
+    @PostMapping("/signup")
+    public Boolean signupNewUser(@RequestBody User user) {
+        System.out.println("yay");
+        return userService.signupNewUser(user.getUsername(), user.getPassword(), user.getEmail(), 0);
+    }
+
+    @GetMapping("/login")
+    public Boolean getLoginValidation(@RequestParam String username, @RequestParam String password) {
+        System.out.println("Yippy");
+        return userService.validateLogin(username, password);
+    }
+
+    @GetMapping("/currentUser")
+    public User getCurrentUser() {
+        return userService.getCurrentUser();
+    }
+
+    @GetMapping("/logout")
+    public Boolean signupNewUser() {
+        System.out.println("Logged out");
+        return userService.removeCurrentUser();
     }
 
     @RequestMapping("/deleteAllDestinations")

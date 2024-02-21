@@ -36,7 +36,7 @@ public class Destination {
 
 
 
-    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "destinations", cascade = CascadeType.ALL)
     private transient List<HasVisited> hasVisitedList;
 
     public String getName() {
