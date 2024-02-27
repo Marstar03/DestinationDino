@@ -1,38 +1,13 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
+import React from 'react';
 import BoxForDestinationInfo from './BoxForDestinationInfo';
-import { fetchData } from '../httpMethods/fetchData';
+import { getRequest } from '../httpMethods/getRequest';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
 const DestinationInfoPage: React.FC = () => {
-  const [data, setData] = useState(null); // Holds the destinations data
-  const [loading, setLoading] = useState(true); // Tracks the loading state
-  const [error, setError] = useState(null); // Tracks the error state
-
-  // This function fetches data from the API.
-  // Adjust the URL or parameters as needed based on your API.
-  const fetchData = async () => {
-    const apiUrl = `http://localhost:8080/destinations`;
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      setData(data); // Update the state with the fetched data
-      setLoading(false); // Set loading to false as data has been loaded
-    } catch (error: any) {
-      console.error('Error fetching data:', error);
-      setError(error);
-      setLoading(false); // Ensure loading is set to false even if there's an error
-    }
-  };
-
-  // Fetch data on component mount
-  useEffect(() => {
-    fetchData();
-  }, []); // Empty dependency array means this effect runs only once after the initial render
-
+  const apiUrl = 'http://localhost:8080/destinations';
+  const { data, loading, error } = getRequest(apiUrl);
 
   //Front-end
   const GlobalStyle = createGlobalStyle`
@@ -96,28 +71,7 @@ const DestinationInfoPage: React.FC = () => {
     padding: 15px;
     text-align: center;
   `;
-  // Example: Displaying the first destination's details
-  // const firstDestination = data[7]; // Adjust this as needed
 
-//   return (
-//     <div>
-//       <GlobalStyle />
-//       <GridContainer>
-//         <Picture style={{ backgroundImage: `url(${firstDestination.picture || 'defaultImageURL'})` }} />
-//         <Heading>
-//           <Title>{firstDestination.name || 'Destination Name'}</Title>
-//           <Score>{firstDestination.score || 'N/A'}</Score>
-//         </Heading>
-//         <Description>{firstDestination.info || 'No description available'}</Description>
-//         {/* You might need to adjust how attractions are displayed based on your data structure */}
-//         <Attractions>
-//           <Attraction>Attraksjoner</Attraction>
-//           <Attraction>Review</Attraction>
-//         </Attractions>
-//       </GridContainer>
-//     </div>
-//   );
-// };
   return (
     <div>
       <GlobalStyle />
@@ -127,7 +81,10 @@ const DestinationInfoPage: React.FC = () => {
           <Title>Los Angeles</Title>
           <Score>8.3</Score>
         </Heading>
-        <Description>Beskrivelse</Description>
+        <Description>
+          <h2>Beskrivelse</h2>
+          {JSON.stringify(data)} 
+        </Description>
         <Attractions>
           <Attraction>Attraksjoner</Attraction>
           <Attraction>Review</Attraction>
