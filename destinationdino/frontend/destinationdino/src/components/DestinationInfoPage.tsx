@@ -97,54 +97,54 @@ const DestinationInfoPage: React.FC = () => {
     text-align: center;
   `;
   // Example: Displaying the first destination's details
-  const firstDestination = data[7]; // Adjust this as needed
+  // const firstDestination = data[7]; // Adjust this as needed
 
-  return (
-    <div>
-      <GlobalStyle />
-      <GridContainer>
-        <Picture style={{ backgroundImage: `url(${firstDestination.picture || 'defaultImageURL'})` }} />
-        <Heading>
-          <Title>{firstDestination.name || 'Destination Name'}</Title>
-          <Score>{firstDestination.score || 'N/A'}</Score>
-        </Heading>
-        <Description>{firstDestination.info || 'No description available'}</Description>
-        {/* You might need to adjust how attractions are displayed based on your data structure */}
-        <Attractions>
-          <Attraction>Attraksjoner</Attraction>
-          <Attraction>Review</Attraction>
-        </Attractions>
-      </GridContainer>
-    </div>
-  );
-};
 //   return (
 //     <div>
 //       <GlobalStyle />
 //       <GridContainer>
-//         <Picture />
+//         <Picture style={{ backgroundImage: `url(${firstDestination.picture || 'defaultImageURL'})` }} />
 //         <Heading>
-//           <Title>Los Angeles</Title>
-//           <Score>8.3</Score>
+//           <Title>{firstDestination.name || 'Destination Name'}</Title>
+//           <Score>{firstDestination.score || 'N/A'}</Score>
 //         </Heading>
-//         <Description>Beskrivelse</Description>
+//         <Description>{firstDestination.info || 'No description available'}</Description>
+//         {/* You might need to adjust how attractions are displayed based on your data structure */}
 //         <Attractions>
 //           <Attraction>Attraksjoner</Attraction>
 //           <Attraction>Review</Attraction>
 //         </Attractions>
 //       </GridContainer>
-
-//       {data && data.map((destination: any, index: number) => (
-//         <BoxForDestinationInfo key={index} title={destination.name} content={JSON.stringify(destination.country)} />
-//       ))}
-
-//       {/* {data && (
-//         <BoxForDestinationInfo title="Short Description" content={data ? JSON.stringify(data) : "N/A"} />
-//       )}
-
-//       <h3>Data: {JSON.stringify(data)}</h3> */}
 //     </div>
 //   );
 // };
+  return (
+    <div>
+      <GlobalStyle />
+      <GridContainer>
+        <Picture />
+        <Heading>
+          <Title>Los Angeles</Title>
+          <Score>8.3</Score>
+        </Heading>
+        <Description>Beskrivelse</Description>
+        <Attractions>
+          <Attraction>Attraksjoner</Attraction>
+          <Attraction>Review</Attraction>
+        </Attractions>
+      </GridContainer>
+
+      {/* {data && data.map((destination: any, index: number) => (
+        <BoxForDestinationInfo key={index} title={destination.name} content={JSON.stringify(destination.country)} />
+      ))} */}
+
+      {data && (
+        <BoxForDestinationInfo title="Short Description" content={data ? JSON.stringify(data) : "N/A"} />
+      )}
+
+      <h3>Data: {JSON.stringify(data)}</h3>
+    </div>
+  );
+};
 
 export default DestinationInfoPage;
