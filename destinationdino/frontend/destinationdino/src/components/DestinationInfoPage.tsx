@@ -1,5 +1,4 @@
-// import React, { useState, useEffect } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BoxForDestinationInfo from './BoxForDestinationInfo';
 import { getRequest } from '../httpMethods/getRequest';
 import styled from 'styled-components';
@@ -7,13 +6,23 @@ import { createGlobalStyle } from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 
+
 const DestinationInfoPage: React.FC = () => {
   
   const { name } = useParams();
-  // const cityName = "London"; // The city you want to fetch
   const apiUrl = `http://localhost:8080/destinationInfo?id=${encodeURIComponent(name)}`;
   const { data, loading, error } = getRequest(apiUrl);
   console.log(name);
+  
+  // Loading state
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Error state
+  if (error) {
+    return <div>Error!</div>;
+  }
 
   //Front-end
   const GlobalStyle = createGlobalStyle`
