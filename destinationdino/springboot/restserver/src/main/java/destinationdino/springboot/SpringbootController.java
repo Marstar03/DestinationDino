@@ -36,7 +36,7 @@ public class SpringbootController {
     }
 
     @GetMapping("/destinationInfo")
-    public Destination getSpecificDestination(@RequestBody String id) {
+    public Destination getSpecificDestination(@RequestParam String id) {
         Optional<Destination> specificDestination = destinationService.getDestinationByID(id);
         if (specificDestination.isEmpty()) {
             return null;

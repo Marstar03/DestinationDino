@@ -6,9 +6,10 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
 const DestinationInfoPage: React.FC = () => {
-  const apiUrl = 'http://localhost:8080/destinations';
+  
+  const cityName = "London"; // The city you want to fetch
+  const apiUrl = `http://localhost:8080/destinationInfo?id=${encodeURIComponent(cityName)}`;
   const { data, loading, error } = getRequest(apiUrl);
-
   //Front-end
   const GlobalStyle = createGlobalStyle`
     body {
@@ -18,15 +19,13 @@ const DestinationInfoPage: React.FC = () => {
 
   const GridContainer = styled.div`
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100vh;
+    grid-template-rows: auto auto auto;
     grid-gap: 10px;
-    max-width: window.innerWidth - 20px;
-    margin: 0 auto;
   `;
 
   const Picture = styled.div`
-    background: url('https://images.pexels.com/photos/2695679/pexels-photo-2695679.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center;
+    background: url(${props => props.pictureUrl}) no-repeat center center;
     background-size: cover;
     height: 400px;
   `;
@@ -48,22 +47,14 @@ const DestinationInfoPage: React.FC = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
     background-color: #D9E5FF;
-    font-size: 2em;
+
   `;
 
   const Description = styled.div`
     background-color: #F2F2F2;
     padding: 15px;
     text-align: center;
-  `;
-
-  const Attractions = styled.div`
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
   `;
 
   const Attraction = styled.div`
@@ -76,30 +67,33 @@ const DestinationInfoPage: React.FC = () => {
     <div>
       <GlobalStyle />
       <GridContainer>
-        <Picture />
+        {data && <Picture pictureUrl={data.picture} />}
         <Heading>
-          <Title>Los Angeles</Title>
-          <Score>8.3</Score>
+          <Title>
+            {data && (
+            <BoxForDestinationInfo title="Destination" content={`${data.name}, ${data.country}`} />
+            )}
+          </Title>
+          <Score>
+          {data && (
+          <BoxForDestinationInfo title="Rating" content="3.5" />
+          )}
+          </Score>
         </Heading>
         <Description>
-          <h2>Beskrivelse</h2>
-          {/* {JSON.stringify(data)}  */}
+          {data && (
+          <BoxForDestinationInfo title="Short Description" content={data.info} />
+          )}
         </Description>
-        <Attractions>
-          <Attraction>Attraksjoner</Attraction>
-          <Attraction>Review</Attraction>
-        </Attractions>
+        <Attraction>
+          {data && (
+          <BoxForDestinationInfo title="Review" content="Review Function Coming Soon" />
+          )}
+        </Attraction>
+        
       </GridContainer>
 
-      {/* {data && data.map((destination: any, index: number) => (
-        <BoxForDestinationInfo key={index} title={destination.name} content={JSON.stringify(destination.country)} />
-      ))} */}
-
-      {/* {data && (
-        <BoxForDestinationInfo title="Short Description" content={data ? JSON.stringify(data) : "N/A"} />
-      )} */}
-
-      <h3>Data: {JSON.stringify(data)}</h3>
+      
     </div>
   );
 };

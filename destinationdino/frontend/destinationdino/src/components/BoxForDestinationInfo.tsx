@@ -7,7 +7,7 @@ export interface BoxProps {
 
 const BoxForDestinationInfo: React.FC<BoxProps> = ({ title, content }) => {
     return (
-        <div style={{ border: '2px solid black' }}>
+        <div>
             <h2>{title}</h2>
             <p>{content}</p>
         </div>
