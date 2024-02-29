@@ -1,6 +1,7 @@
 import "./App.css";
 import Navbar from "./Navbar";
 import Admin from "./components/Admin";
+import DestinationBox from "./components/DestinationBox";
 import About from "./pages/About";
 import DestinationInformation from "./pages/DestinationInformation";
 import Home from "./pages/Home";

@@ -1,3 +1,6 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 import DefaultDestination from "../assets/DefaultDestination.jpg";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -6,6 +9,7 @@ export interface DestinationProps {
   name: string;
   country: string;
   picture: string;
+  link: string;
 }
 
 const DestinationBox: React.FC<DestinationProps> = ({
