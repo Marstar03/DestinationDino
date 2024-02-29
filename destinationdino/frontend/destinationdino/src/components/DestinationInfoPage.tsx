@@ -83,7 +83,7 @@ const DestinationInfoPage: React.FC = () => {
         </Heading>
         <Description>
           <h2>Beskrivelse</h2>
-          {JSON.stringify(data)} 
+          {/* {JSON.stringify(data)}  */}
         </Description>
         <Attractions>
           <Attraction>Attraksjoner</Attraction>
@@ -95,9 +95,9 @@ const DestinationInfoPage: React.FC = () => {
         <BoxForDestinationInfo key={index} title={destination.name} content={JSON.stringify(destination.country)} />
       ))} */}
 
-      {data && (
+      {/* {data && (
         <BoxForDestinationInfo title="Short Description" content={data ? JSON.stringify(data) : "N/A"} />
-      )}
+      )} */}
 
       <h3>Data: {JSON.stringify(data)}</h3>
     </div>
