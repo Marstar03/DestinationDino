@@ -4,12 +4,17 @@ import BoxForDestinationInfo from './BoxForDestinationInfo';
 import { getRequest } from '../httpMethods/getRequest';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
+import { useParams } from 'react-router-dom';
+
 
 const DestinationInfoPage: React.FC = () => {
   
-  const cityName = "London"; // The city you want to fetch
-  const apiUrl = `http://localhost:8080/destinationInfo?id=${encodeURIComponent(cityName)}`;
+  const { name } = useParams();
+  // const cityName = "London"; // The city you want to fetch
+  const apiUrl = `http://localhost:8080/destinationInfo?id=${encodeURIComponent(name)}`;
   const { data, loading, error } = getRequest(apiUrl);
+  console.log(name);
+
   //Front-end
   const GlobalStyle = createGlobalStyle`
     body {

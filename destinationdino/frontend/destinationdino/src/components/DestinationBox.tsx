@@ -1,6 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 import DefaultDestination from "../assets/DefaultDestination.jpg";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -18,7 +15,9 @@ const DestinationBox: React.FC<DestinationProps> = ({
   picture,
 }) => {
   return (
-    <Link to="/DestinationInformation/" relative="path">
+    // <Link to={`/DestinationInformation/${encodeURIComponent(name)}`}>
+    <Link to={`/DestinationInformation/${encodeURIComponent(name.trim())}`}>
+    {/* <Link to={`/DestinationInformation/`}> */}
     <div className="destination-box">
       <img src={picture != null? picture : DefaultDestination} alt={name} style={{ maxHeight: '100px', minHeight: '100px' }} />
       <div className="destination-info">
