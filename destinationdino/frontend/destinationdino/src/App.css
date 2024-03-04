@@ -37,3 +37,13 @@
 .destination-rating {
   
 }
+
+.radioButtonsTesting {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.radioPair {
+  padding: 5%;
+}

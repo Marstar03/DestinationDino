@@ -4,12 +4,17 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { postRequest } from "../httpMethods/postRequest";
 import { UserProfileProps } from "./UserProfile";
+import AdminRadioButtons, { RadioButtonsProps } from "./RadioButtons";
 
 interface AdminFormValues {
   name: string;
   country: string;
   imageUrl: string;
   information: string;
+  isCity: boolean;
+  isWarm: boolean;
+  isNorway: boolean;
+  isCoast: boolean;
 }
 
 const Admin: React.FC = () => {
@@ -18,6 +23,10 @@ const Admin: React.FC = () => {
     country: "",
     imageUrl: "",
     information: "",
+    isCity: true,
+    isWarm: true,
+    isNorway: true,
+    isCoast: true,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,21 +46,36 @@ const Admin: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const name = data.get("name") as string;
-    const country = data.get("country") as string;
+    const tempName = data.get("name") as string;
+    const name = tempName.trim();
+    const tempCountry = data.get("country") as string;
+    const country = tempCountry.trim();
     const picture = data.get("imageUrl") as string;
     const info = data.get("information") as string;
+    const city = data.get("isCity") as unknown as boolean;
+    const warm = data.get("isWarm") as unknown as boolean;
+    const norway = data.get("isNorway") as unknown as boolean;
+    const coast = data.get("isCoast") as unknown as boolean;
     console.log(name);
     console.log(country);
     console.log(picture);
     console.log(info);
-    await postData({ name, country, picture, info });
-    console.log(formValues);
+    console.log(isCity);
+    console.log(isWarm);
+    console.log(isNorway);
+    console.log(isCoast);
+    await postData({ name, country, picture, info, city, warm, norway, coast });
+    //console.log("Formvalues:");
+    //console.log(formValues);
     setFormValues({
       name: "",
       country: "",
       imageUrl: "",
       information: "",
+      isCity: true,
+      isWarm: true,
+      isNorway: true,
+      isCoast: true,
     });
   };
 
@@ -76,6 +100,42 @@ const Admin: React.FC = () => {
 
   console.log(currentUser);
   console.log(currentUser?.admin);
+
+  const isCity: RadioButtonsProps = {
+    labelName: "City/Rural",
+    labId: "city",
+    label1: "City",
+    label2: "Rural",
+    groupName: "isCity",
+    three: false,
+  };
+
+  const isWarm: RadioButtonsProps = {
+    labelName: "Warm/Cold",
+    labId: "warm",
+    label1: "Warm",
+    label2: "Cold",
+    groupName: "isWarm",
+    three: false,
+  };
+
+  const isNorway: RadioButtonsProps = {
+    labelName: "Norway/Abroad",
+    labId: "norway",
+    label1: "Norway",
+    label2: "Abroad",
+    groupName: "isNorway",
+    three: false,
+  };
+
+  const isCoast: RadioButtonsProps = {
+    labelName: "Coast/Midland",
+    labId: "coast",
+    label1: "Coast",
+    label2: "Midland",
+    groupName: "isCoast",
+    three: false,
+  };
 
   if (!currentUser?.admin) {
     return <div>Only for admin</div>;
@@ -129,6 +189,14 @@ const Admin: React.FC = () => {
           value={formValues.information}
           onChange={handleChange}
         />
+
+        <div className="radioButtonsTesting">
+          <div className="radioPair"><AdminRadioButtons {...isCity}/></div>
+          <div className="radioPair"><AdminRadioButtons {...isWarm}/></div>
+          <div className="radioPair"><AdminRadioButtons {...isNorway}/></div>
+          <div className="radioPair"><AdminRadioButtons {...isCoast}/></div>
+        </div>
+
         <Button
           type="submit"
           fullWidth
