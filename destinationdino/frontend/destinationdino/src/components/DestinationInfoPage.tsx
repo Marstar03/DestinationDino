@@ -4,8 +4,7 @@ import { getRequest } from '../httpMethods/getRequest';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { useParams } from 'react-router-dom';
-
-
+import CustomCheckbox from './CheckBox';
 
 const DestinationInfoPage: React.FC = () => {
   
@@ -58,11 +57,24 @@ const DestinationInfoPage: React.FC = () => {
   `;
 
   const Score = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #D9E5FF;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 10px;
+  `;
 
+  const Rating = styled.div`
+  background-color: lightblue;
+  margin: 0;
+  padding:0;
+  `;
+
+  const Check = styled.div`
+  background-color: #F2F2F2;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-style: bold;
   `;
 
   const Description = styled.div`
@@ -89,9 +101,15 @@ const DestinationInfoPage: React.FC = () => {
             )}
           </Title>
           <Score>
-          {data && (
-          <BoxForDestinationInfo title="Rating" content="3.5" />
-          )}
+            <Rating>
+              {data && (
+            <BoxForDestinationInfo title="Rating" content="3.5" />
+            )}
+            </Rating>
+            <Check>
+              <CustomCheckbox />
+            </Check>    
+          
           </Score>
         </Heading>
         <Description>
