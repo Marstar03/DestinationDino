@@ -13,27 +13,28 @@ export interface RadioButtonsProps {
   label2: string;
   groupName: string;
   three: boolean;
+  onChange: (value: string) => void; // Add onChange prop
 }
 
-const AdminRadioButtons: React.FC<RadioButtonsProps> = ({ labelName, labId, label1, label2, groupName, three }) => {
+const AdminRadioButtons: React.FC<RadioButtonsProps> = ({ labelName, labId, label1, label2, groupName, three, onChange }) => {
   
   function handleChange(event: ChangeEvent<HTMLInputElement>, value: string): void {
-    console.log(value);
-    
-  }
+    console.log("Radio button endret verdi til: ", value);
+    onChange(value);
+  };
   if (three) {
     return (
       <FormControl>
         <FormLabel id={labId}>{labelName}</FormLabel>
             <RadioGroup
-              defaultValue={true}
+              defaultValue={undefined}
               name={groupName}
               id="#radioButton"
-              // onChange={handleChange}
+              onChange={handleChange}
             >
-              <FormControlLabel value={true} control={<Radio />} label={label1} />
-              <FormControlLabel value={false} control={<Radio />} label={label2} />
-              <FormControlLabel value={"undefined"} control={<Radio />} label={"Do not apply"} />
+              <FormControlLabel value="undefined" control={<Radio />} label={"Show All"} />
+              <FormControlLabel value="true" control={<Radio />} label={label1} />
+              <FormControlLabel value="false" control={<Radio />} label={label2} />
             </RadioGroup>
       </FormControl>
       );
