@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel'; // For labeling
-import styled from 'styled-components';
-import Typography from '@mui/material/Typography';
+import React, { useState } from "react";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel"; // For labeling
+import styled from "styled-components";
+import Typography from "@mui/material/Typography";
 const CheckboxContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -26,18 +26,21 @@ const CustomCheckbox: React.FC = () => {
             onChange={handleOnChange}
             size="medium" // Customizable: 'small', 'medium', 'large'
             sx={{
-                '& .MuiSvgIcon-root': { // Targeting the SVG icon inside the Checkbox
-                  fontSize: 120, // Adjust size as needed
-                },
-              }}
+              "& .MuiSvgIcon-root": {
+                // Targeting the SVG icon inside the Checkbox
+                fontSize: 120, // Adjust size as needed
+              },
+            }}
             color="primary" // Customizable: 'primary', 'secondary', 'default'
           />
         }
         label={
-            <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}> {/* Adjust font size as needed */}
-              {isChecked ? 'Has visited' : 'Has not visited'}
-            </Typography>
-          }
+          <Typography sx={{ fontSize: "30px", fontWeight: "bold" }}>
+            {" "}
+            {/* Adjust font size as needed */}
+            {isChecked ? "Has visited" : "Has not visited"}
+          </Typography>
+        }
       />
     </CheckboxContainer>
   );

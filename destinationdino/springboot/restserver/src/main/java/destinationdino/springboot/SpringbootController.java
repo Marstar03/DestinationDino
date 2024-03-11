@@ -78,6 +78,24 @@ public class SpringbootController {
         return userService.removeCurrentUser();
     }
 
+    @GetMapping("/userHasVisited")
+    public Boolean getAllHasVisited(@RequestParam String destinationName) {
+        return hasVisitedService.checkIfHasVisited(destinationName, userService.getCurrentUser().getUsername());
+    }
+
+    @PostMapping("/addHasVisited")
+    public Boolean createHasVisited(@RequestParam Destination destination) {
+        HasVisited newVisit = new HasVisited(userService.getCurrentUser(), destination);
+        hasVisitedService.createHasVisited(newVisit);
+        return true;
+    }
+
+    @PostMapping("/removeHasVisited")
+    public Boolean removeHasVisited(@RequestParam Destination destination) {
+        HasVisited oldVisit = new HasVisited(userService.getCurrentUser(), destination);
+        return hasVisitedService.removeHasVisited(oldVisit);
+    }
+
     @RequestMapping("/deleteAllDestinations")
     public ResponseEntity<String> wipeDatabase() {
         return destinationService.deleteAll();
