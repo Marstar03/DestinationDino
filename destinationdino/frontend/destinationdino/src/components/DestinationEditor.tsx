@@ -191,7 +191,7 @@ const DestinationEditor: React.FC = () => {
     return (
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <h2>Edit Destination</h2>
-        <Select
+        {/* <Select
           // margin="normal"
           required
           fullWidth
@@ -210,7 +210,24 @@ const DestinationEditor: React.FC = () => {
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
         
-        </Select>
+        </Select> */}
+        <FormControl fullWidth required>
+          <InputLabel id="demo-simple-select-label">Name</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="name"
+            label="Destination name"
+            name="name"
+            autoComplete="name"
+            autoFocus
+            value={formValues.name}
+            onChange={handleChange}
+          >
+            <MenuItem value={"Paris"}>Paris</MenuItem>
+            <MenuItem value={"Los Angeles"}>Los Angeles</MenuItem>
+            <MenuItem value={"Rome"}>Rome</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
           margin="normal"
           required
