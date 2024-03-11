@@ -108,6 +108,7 @@ const Admin: React.FC = () => {
     label2: "Rural",
     groupName: "isCity",
     three: false,
+    onChange: () => {},
   };
 
   const isWarm: RadioButtonsProps = {
@@ -117,6 +118,7 @@ const Admin: React.FC = () => {
     label2: "Cold",
     groupName: "isWarm",
     three: false,
+    onChange: () => {},
   };
 
   const isNorway: RadioButtonsProps = {
@@ -126,6 +128,7 @@ const Admin: React.FC = () => {
     label2: "Abroad",
     groupName: "isNorway",
     three: false,
+    onChange: () => {},
   };
 
   const isCoast: RadioButtonsProps = {
@@ -135,6 +138,7 @@ const Admin: React.FC = () => {
     label2: "Midland",
     groupName: "isCoast",
     three: false,
+    onChange: () => {},
   };
 
   if (!currentUser?.admin) {
