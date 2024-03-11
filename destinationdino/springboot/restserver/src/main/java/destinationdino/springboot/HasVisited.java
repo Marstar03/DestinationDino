@@ -22,7 +22,8 @@ public class HasVisited {
     @JoinColumn(name = "destinationId")
     private Destination destination;
 
-    private int review;
+    private int rating;
+    private String review;
 
     public HasVisited() {
 
@@ -31,11 +32,14 @@ public class HasVisited {
     public HasVisited(User user, Destination destination) {
         setUser(user);
         setDestination(destination);
+        setRating(-1);
+        setReview("");
     }
 
-    public HasVisited(User user, Destination destination, int review) {
+    public HasVisited(User user, Destination destination, int rating, String review) {
         setUser(user);
         setDestination(destination);
+        setRating(rating);
         setReview(review);
     }
 
@@ -55,13 +59,21 @@ public class HasVisited {
         this.destination = destination;
     }
 
-    public int getReview() {
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getReview() {
         return review;
     }
 
-    public void setReview(int review) {
+    public void setReview(String review) {
         this.review = review;
     }
-
+    
 
 }

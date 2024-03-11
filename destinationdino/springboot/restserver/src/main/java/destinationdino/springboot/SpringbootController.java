@@ -78,9 +78,49 @@ public class SpringbootController {
         return userService.removeCurrentUser();
     }
 
+    @GetMapping("/userHasVisited")
+    public Boolean getAllHasVisited(@RequestParam String destinationName) {
+        return hasVisitedService.checkIfHasVisited(destinationName, userService.getCurrentUser().getUsername());
+    }
+
+    @PostMapping("/addHasVisited")
+    public Boolean createHasVisited(@RequestParam Destination destination) {
+        HasVisited newVisit = new HasVisited(userService.getCurrentUser(), destination);
+        hasVisitedService.createHasVisited(newVisit);
+        return true;
+    }
+
+    @PostMapping("/removeHasVisited")
+    public Boolean removeHasVisited(@RequestParam Destination destination) {
+        HasVisited oldVisit = new HasVisited(userService.getCurrentUser(), destination);
+        return hasVisitedService.removeHasVisited(oldVisit);
+    }
+
     @RequestMapping("/deleteAllDestinations")
     public ResponseEntity<String> wipeDatabase() {
         return destinationService.deleteAll();
+    }
+
+
+    // Metode som brukes både for å lage ny review
+    @PostMapping("/hasVisited")
+    public Boolean addReview(@RequestParam int rating, @RequestParam String review, @RequestParam String destinationName) {
+        Destination destination = getSpecificDestination(destinationName);
+        User currentUser = getCurrentUser();
+        if (!getAllHasVisited(destinationName)) {
+            return false;
+        }
+        for (HasVisited hasvisited : hasVisitedService.getAllHasVisiteds()) {
+            if (hasvisited.getUser() == currentUser && hasvisited.getDestination().getName().equals(destinationName) && hasvisited.getRating() == -1) {
+                HasVisited newVisit = new HasVisited(userService.getCurrentUser(), destination, rating, review);
+                hasVisitedService.createHasVisited(newVisit);
+                return true;
+            }
+        }
+        return false;
+
+
+        //return hasVisitedService.updateReview(username, destinationName, rating, review);
     }
 
 }
