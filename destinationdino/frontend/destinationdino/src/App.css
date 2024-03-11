@@ -47,3 +47,16 @@
 .radioPair {
   padding: 5%;
 }
+
+.adminChoice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.adminButtonChoice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 5%;
+}
