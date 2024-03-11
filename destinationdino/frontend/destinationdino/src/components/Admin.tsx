@@ -142,6 +142,7 @@ const Admin: React.FC = () => {
   } else {
     return (
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <h2>Add new destination</h2>
         <TextField
           margin="normal"
           required

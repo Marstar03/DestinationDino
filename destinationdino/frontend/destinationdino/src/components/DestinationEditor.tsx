@@ -7,8 +7,10 @@ import { UserProfileProps } from "./UserProfile";
 import AdminRadioButtons, { RadioButtonsProps } from "./RadioButtons";
 import { getRequest } from '../httpMethods/getRequest';
 import DestinationGrid from "./DestinationGrid";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import { DestinationProps } from "./DestinationBox";
+import Destination, { StandardDestinationProps } from "./Destination";
 
 interface AdminFormValues {
   name: string;
@@ -83,6 +85,27 @@ const DestinationEditor: React.FC = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const [cityValue, setCityValue] = useState(true);
+  const [warmValue, setWarmValue] = useState(true);
+  const [norwayValue, setNorwayValue] = useState(true);
+  const [coastValue, setCoastValue] = useState(true);
+
+  const handleChangeSelect = (event: SelectChangeEvent<String>) => {
+    console.log("select ble endret--------------------");
+    console.log(event.target);
+    const value = event.target.value;
+    console.log(value);
+    const destination = currentDestinations?.find((Destination) => Destination.name == value);
+    console.log(destination);
+    setFormValues({ ...formValues, name: value.toString(), country: destination?.country, information: destination?.info, imageUrl: destination?.picture, isCity: destination?.city, isWarm: destination?.warm, isCoast: destination?.coast, isNorway: destination?.norway });
+    setCityValue(destination?.city);
+    setWarmValue(destination?.warm);
+    console.log(warmValue);
+    setNorwayValue(destination?.norway);
+    setCoastValue(destination?.coast);
+    // console.log(formValues);
+  };
+
   // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   //   console.log("her?2");
   //   event.preventDefault();
@@ -146,6 +169,29 @@ const DestinationEditor: React.FC = () => {
     fetchData();
   }, []); // Empty dependency array ensures the effect runs only once on component mount
 
+  const initialData: StandardDestinationProps[] = [];
+  const [currentDestinations, setCurrentDestinations] = useState<StandardDestinationProps[] | null>(initialData);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const apiUrl = `http://localhost:8080/destinations`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const destinationData = await response.json();
+        console.log("Rådata:", {destinationData});
+        setCurrentDestinations(destinationData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []); // Empty dependency array ensures the effect runs only once on component mount
+
+  console.log(currentDestinations?.find((Destination) => Destination.name == "Paris")?.country);
+  console.log(currentDestinations?.filter((Destination) => Destination.name != "").forEach(Destination => console.log(Destination.name)));
   console.log(currentUser);
   console.log(currentUser?.admin);
 
@@ -156,6 +202,7 @@ const DestinationEditor: React.FC = () => {
     label2: "Rural",
     groupName: "isCity",
     three: false,
+    // startValue: cityValue,
   };
 
   const isWarm: RadioButtonsProps = {
@@ -165,6 +212,7 @@ const DestinationEditor: React.FC = () => {
     label2: "Cold",
     groupName: "isWarm",
     three: false,
+    // startValue: warmValue,
   };
 
   const isNorway: RadioButtonsProps = {
@@ -174,6 +222,7 @@ const DestinationEditor: React.FC = () => {
     label2: "Abroad",
     groupName: "isNorway",
     three: false,
+    // startValue: norwayValue,
   };
 
   const isCoast: RadioButtonsProps = {
@@ -183,6 +232,7 @@ const DestinationEditor: React.FC = () => {
     label2: "Midland",
     groupName: "isCoast",
     three: false,
+    // startValue: coastValue,
   };
 
   if (!currentUser?.admin) {
@@ -191,28 +241,8 @@ const DestinationEditor: React.FC = () => {
     return (
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <h2>Edit Destination</h2>
-        {/* <Select
-          // margin="normal"
-          required
-          fullWidth
-          id="name"
-          label="Destination Name"
-          name="name"
-          autoComplete="name"
-          autoFocus
-          value={formValues.name}
-          onChange={handleChange}
-        > 
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        
-        </Select> */}
         <FormControl fullWidth required>
-          <InputLabel id="demo-simple-select-label">Name</InputLabel>
+          <InputLabel id="demo-simple-select-label">Destination name</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="name"
@@ -221,11 +251,13 @@ const DestinationEditor: React.FC = () => {
             autoComplete="name"
             autoFocus
             value={formValues.name}
-            onChange={handleChange}
+            onChange={handleChangeSelect}
           >
-            <MenuItem value={"Paris"}>Paris</MenuItem>
-            <MenuItem value={"Los Angeles"}>Los Angeles</MenuItem>
-            <MenuItem value={"Rome"}>Rome</MenuItem>
+            {currentDestinations?.map((Destination) => (
+              <MenuItem key={Destination.name} value={Destination.name}>
+                {Destination.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <TextField
