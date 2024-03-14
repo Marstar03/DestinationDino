@@ -35,50 +35,7 @@ const DestinationEditor: React.FC = () => {
     isCoast: true,
   });
 
-  // const apiUrlDest = 'http://localhost:8080/destinations';
-
-  // const handleRequest = async () => {
-  //   const [dataDest, setData] = useState(null);
-  //   const [loadingDest, setLoading] = useState(true);
-  //   const [errorDest, setError] = useState(null);
-  //   useEffect(() => {
-  //     setLoading(true);
-  //      fetch(apiUrlDest)
-  //               .then(response => {
-  //                   if (!response.ok) {
-  //                       throw new Error(`HTTP error! Status: ${response.status}`);
-  //                   }
-  //                   return response.json();
-  //               })
-  //               .then(data => {
-  //                   setData(data);
-  //                   setLoading(false);
-  //               })
-  //               .catch(error => {
-  //                   setError(error);
-  //                   setLoading(false);
-  //               });
-  //           }, [apiUrlDest]);
-  //   return {dataDest, loadingDest, errorDest};
-  // }
-
-  // const { data: destinations, loading, errorDest } = handleRequest();
-
-  // if (loadingDest) {
-  //   return <div>Loading destinations...</div>;
-  // }
-
-  // if (errorDest) {
-  //   return <div>Error fetching destinations: {errorDest}</div>;
-  // }
-
-  // return (
-  //   <div>
-  //       <h2>Destinations</h2>
-  //       <DestinationGrid destinations={destinations} />
-  //   </div>
-  // ); 
-
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("her?");
     const { name, value } = event.target;
@@ -148,6 +105,11 @@ const DestinationEditor: React.FC = () => {
       isNorway: true,
       isCoast: true,
     });
+    setCityValue(true);
+    setWarmValue(true);
+    setNorwayValue(true);
+    setCoastValue(true);
+    setRunEffect(true);
   };
 
   const [currentUser, setCurrentUser] = useState<UserProfileProps | null>(null);
@@ -172,23 +134,30 @@ const DestinationEditor: React.FC = () => {
   const initialData: StandardDestinationProps[] = [];
   const [currentDestinations, setCurrentDestinations] = useState<StandardDestinationProps[] | null>(initialData);
 
+  const [runEffect, setRunEffect] = useState(true);
+  // const [startEffect, setStartEffect] = useState(true);
+
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const apiUrl = `http://localhost:8080/destinations`;
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+    if (runEffect) {
+      setRunEffect(false)
+      console.log("Oppdaterer destination data på nytt fra server");
+      async function fetchData() {
+        try {
+          const apiUrl = `http://localhost:8080/destinations`;
+          const response = await fetch(apiUrl);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const destinationData = await response.json();
+          console.log("Rådata:", {destinationData});
+          setCurrentDestinations(destinationData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
         }
-        const destinationData = await response.json();
-        console.log("Rådata:", {destinationData});
-        setCurrentDestinations(destinationData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
       }
+      fetchData();
     }
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
+  }, [runEffect]); // Empty dependency array ensures the effect runs only once on component mount
 
   console.log(currentDestinations?.find((Destination) => Destination.name == "Paris")?.country);
   console.log(currentDestinations?.filter((Destination) => Destination.name != "").forEach(Destination => console.log(Destination.name)));
@@ -202,7 +171,11 @@ const DestinationEditor: React.FC = () => {
     label2: "Rural",
     groupName: "isCity",
     three: false,
-    // startValue: cityValue,
+    startValue: cityValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isCity: ", value);
+      setCityValue(value === "true");
+    },
   };
 
   const isWarm: RadioButtonsProps = {
@@ -212,7 +185,11 @@ const DestinationEditor: React.FC = () => {
     label2: "Cold",
     groupName: "isWarm",
     three: false,
-    // startValue: warmValue,
+    startValue: warmValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isWarm: ", value);
+      setWarmValue(value === "true");
+    },
   };
 
   const isNorway: RadioButtonsProps = {
@@ -222,7 +199,11 @@ const DestinationEditor: React.FC = () => {
     label2: "Abroad",
     groupName: "isNorway",
     three: false,
-    // startValue: norwayValue,
+    startValue: norwayValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isNorway: ", value);
+      setNorwayValue(value === "true");
+    },
   };
 
   const isCoast: RadioButtonsProps = {
@@ -232,7 +213,11 @@ const DestinationEditor: React.FC = () => {
     label2: "Midland",
     groupName: "isCoast",
     three: false,
-    // startValue: coastValue,
+    startValue: coastValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isCoast: ", value);
+      setCoastValue(value === "true");
+    },
   };
 
   if (!currentUser?.admin) {

@@ -29,6 +29,11 @@ const Admin: React.FC = () => {
     isCoast: true,
   });
 
+  const [cityValue, setCityValue] = useState(true);
+  const [warmValue, setWarmValue] = useState(true);
+  const [norwayValue, setNorwayValue] = useState(true);
+  const [coastValue, setCoastValue] = useState(true);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("her?");
     const { name, value } = event.target;
@@ -108,7 +113,11 @@ const Admin: React.FC = () => {
     label2: "Rural",
     groupName: "isCity",
     three: false,
-    onChange: () => {},
+    startValue: cityValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isCity: ", value);
+      setCityValue(value === "true");
+    },
   };
 
   const isWarm: RadioButtonsProps = {
@@ -118,7 +127,11 @@ const Admin: React.FC = () => {
     label2: "Cold",
     groupName: "isWarm",
     three: false,
-    onChange: () => {},
+    startValue: warmValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isWarm: ", value);
+      setWarmValue(value === "true");
+    },
   };
 
   const isNorway: RadioButtonsProps = {
@@ -128,7 +141,11 @@ const Admin: React.FC = () => {
     label2: "Abroad",
     groupName: "isNorway",
     three: false,
-    onChange: () => {},
+    startValue: norwayValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isNorway: ", value);
+      setNorwayValue(value === "true");
+    },
   };
 
   const isCoast: RadioButtonsProps = {
@@ -138,7 +155,11 @@ const Admin: React.FC = () => {
     label2: "Midland",
     groupName: "isCoast",
     three: false,
-    onChange: () => {},
+    startValue: coastValue,
+    onChange: (value: string) => {
+      console.log("Selected value for isCoast: ", value);
+      setCoastValue(value === "true");
+    },
   };
 
   if (!currentUser?.admin) {

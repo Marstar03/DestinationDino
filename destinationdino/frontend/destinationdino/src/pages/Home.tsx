@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DestinationGrid from '../components/DestinationGrid';
 import { getRequest } from '../httpMethods/getRequest';
 import RadioButtons, { RadioButtonsProps } from '../components/RadioButtons';
+import AdminRadioButtons from '../components/RadioButtons';
 
 export default function Home() {
   
@@ -46,6 +47,7 @@ export default function Home() {
       label2: "Rural",
       groupName: "isCity",
       three: true,
+      startValue: true,
       onChange: (value: string) => {
         console.log("Selected value for isCity: ", value);
         handleFilterChange("isCity", value);
@@ -59,6 +61,7 @@ export default function Home() {
       label2: "Cold",
       groupName: "isWarm",
       three: true,
+      startValue: true,
       onChange: (value: string) => {
         console.log("Selected value for isWarm: ", value);
         handleFilterChange("isWarm", value);
@@ -72,6 +75,7 @@ export default function Home() {
       label2: "Abroad",
       groupName: "isNorway",
       three: true,
+      startValue: true,
       onChange: (value: string) => {
         console.log("Selected value for isNorway: ", value);
         handleFilterChange("isNorway", value);
@@ -85,6 +89,7 @@ export default function Home() {
       label2: "Midland",
       groupName: "isCoast",
       three: true,
+      startValue: true,
       onChange: (value: string) => {
         console.log("Selected value for isCoast: ", value);
         handleFilterChange("isCoast", value);
@@ -105,11 +110,11 @@ export default function Home() {
             <div>
               <div>
                 <h2>Filters</h2>
-                <div className="radioButtonsTesting">
-                    <RadioButtons {...isCity} />
-                    <RadioButtons {...isWarm} />
-                    <RadioButtons {...isNorway} />
-                    <RadioButtons {...isCoast} />
+                <div className="radioButtonsTesting">  
+                  <div className="radioPair"><AdminRadioButtons {...isCity}/></div>
+                  <div className="radioPair"><AdminRadioButtons {...isWarm}/></div>
+                  <div className="radioPair"><AdminRadioButtons {...isNorway}/></div>
+                  <div className="radioPair"><AdminRadioButtons {...isCoast}/></div>
                 </div>
                 <h2>Destinations</h2>
                 <DestinationGrid destinations={filteredDestinations} />
@@ -120,10 +125,10 @@ export default function Home() {
               <div style={{ position: 'fixed', top: 60, left: 0, width: '100%', backgroundColor: 'white', zIndex: 1000 }}>
                 <h2>Filters</h2>
                 <div className="radioButtonsTesting">
-                    <RadioButtons {...isCity} />
-                    <RadioButtons {...isWarm} />
-                    <RadioButtons {...isNorway} />
-                    <RadioButtons {...isCoast} />
+                  <div className="radioPair"><AdminRadioButtons {...isCity}/></div>
+                  <div className="radioPair"><AdminRadioButtons {...isWarm}/></div>
+                  <div className="radioPair"><AdminRadioButtons {...isNorway}/></div>
+                  <div className="radioPair"><AdminRadioButtons {...isCoast}/></div>
                 </div>
                 <h2>Destinations</h2>
                 <p>No matching destinations</p>
