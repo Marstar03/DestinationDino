@@ -122,4 +122,14 @@ public class SpringbootController {
         return true;
     }
 
+    @GetMapping("/hasVisited/destination")
+    public List<HasVisited> getHasVisitedByDestination(@RequestParam String name) {
+        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getDestination().getName().equals(name)).toList();
+    }
+
+    @GetMapping("/hasVisited/user")
+    public List<HasVisited> getHasVisitedByUser(@RequestParam String username) {
+        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getUser().getUsername().equals(username)).toList();
+    }
+
 }
