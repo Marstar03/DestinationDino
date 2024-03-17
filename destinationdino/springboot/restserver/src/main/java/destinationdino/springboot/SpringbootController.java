@@ -102,25 +102,24 @@ public class SpringbootController {
     }
 
 
-    // Metode som brukes både for å lage ny review
+    // Metode som brukes både for å lage ny review og for å oppdatere en eksisterende review
     @PostMapping("/hasVisited")
-    public Boolean addReview(@RequestParam int rating, @RequestParam String review, @RequestParam String destinationName) {
-        Destination destination = getSpecificDestination(destinationName);
-        User currentUser = getCurrentUser();
-        if (!getAllHasVisited(destinationName)) {
+    public Boolean addReview(@RequestBody JsonReviewData jsonReviewData) {
+        Optional<Destination> specificDestination = destinationService.getDestinationByID(jsonReviewData.getName());
+        if (specificDestination.isEmpty()) {
             return false;
         }
-        for (HasVisited hasvisited : hasVisitedService.getAllHasVisiteds()) {
-            if (hasvisited.getUser() == currentUser && hasvisited.getDestination().getName().equals(destinationName) && hasvisited.getRating() == -1) {
-                HasVisited newVisit = new HasVisited(userService.getCurrentUser(), destination, rating, review);
-                hasVisitedService.createHasVisited(newVisit);
-                return true;
-            }
+        Destination destination = specificDestination.get();
+
+        User currentUser = userService.getCurrentUser();
+        System.out.println(currentUser.getUsername() + " " + destination.getName() + " " + jsonReviewData.getRating() + " " + jsonReviewData.getReview());
+
+        if (destination != null && currentUser != null) {
+            HasVisited newVisit = new HasVisited(currentUser, destination, jsonReviewData.getRating(), jsonReviewData.getReview());
+            hasVisitedService.createHasVisited(newVisit);
+            System.out.println("hasVisited added successfully");
         }
-        return false;
-
-
-        //return hasVisitedService.updateReview(username, destinationName, rating, review);
+        return true;
     }
 
 }

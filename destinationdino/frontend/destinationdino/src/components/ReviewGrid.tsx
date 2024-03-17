@@ -1,18 +1,18 @@
 import React from "react";
-import DestinationBox, { DestinationProps } from "./DestinationBox";
+import ReviewBox, { ReviewProps } from "./ReviewBox";
 
-interface DestinationGridProps {
-  destinations: DestinationProps[];
+interface ReviewGridProps {
+  reviews: ReviewProps[];
 }
 
-const DestinationGrid: React.FC<DestinationGridProps> = ({ destinations }) => {
+const ReviewGrid: React.FC<ReviewGridProps> = ({ reviews }) => {
   return (
-    <div className="destination-grid">
-      {destinations.map((dest, index) => (
-        <DestinationBox key={index} {...dest} />
+    <div className="review-grid">
+      {reviews.map((review, index) => (
+        <ReviewBox key={index} {...review} />
       ))}
     </div>
   );
 };
 
-export default DestinationGrid;
+export default ReviewGrid;

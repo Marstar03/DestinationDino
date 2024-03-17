@@ -4,6 +4,7 @@ import { getRequest } from '../httpMethods/getRequest';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { useParams } from 'react-router-dom';
+import BoxForDestinationReviews from './BoxForDestinationReviews';
 
 
 
@@ -101,7 +102,7 @@ const DestinationInfoPage: React.FC = () => {
         </Description>
         <Attraction>
           {data && (
-          <BoxForDestinationInfo title="Review" content="Review Function Coming Soon" />
+          <BoxForDestinationReviews title="Reviews" name={data.name} />
           )}
         </Attraction>
         

@@ -7,6 +7,7 @@ import About from "./pages/About";
 import DestinationInformation from "./pages/DestinationInformation";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import ReviewPage from "./pages/ReviewPage";
 import SignInSide from "./pages/SignInSide";
 import SignUpSide from "./pages/SignUpSide";
 import { Route, Routes } from "react-router-dom";
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         {/* <Route path="/DestinationInformation/" element={<DestinationInformation />} /> */}
         <Route path="/DestinationInformation/:name" element={<DestinationInformation />} />
+        <Route path="/ReviewPage/:name" element={<ReviewPage />} />
 
       </Routes>
       

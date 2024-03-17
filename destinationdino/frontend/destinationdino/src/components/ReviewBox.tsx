@@ -1,20 +1,20 @@
 export interface ReviewProps {
-    image: string;
-    name: string;
+    username: string;
     rating: number;
+    review: string;
   }
   
   const ReviewBox: React.FC<ReviewProps> = ({
-    image,
-    name,
+    username,
     rating,
+    review,
   }) => {
     return (
-      <div className="destination-box">
-        <img src={image} alt={name} />
+      <div className="review-box">
+        <h2>{username}</h2>
+        <h2>{rating}/5</h2>
         <div className="destination-info">
-          <h3>{name}</h3>
-          <span className="destination-rating">{rating}</span>
+          <h3>{review}</h3>
         </div>
       </div>
     );
