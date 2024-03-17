@@ -109,7 +109,7 @@ export default function ReviewPage() {
     return (
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <h2>Rating for {name}</h2>
-        <RatingStars onRatingChange={handleRatingChange} />
+        <RatingStars onRatingChange={handleRatingChange} />        
         <TextField
             margin="normal"
             required

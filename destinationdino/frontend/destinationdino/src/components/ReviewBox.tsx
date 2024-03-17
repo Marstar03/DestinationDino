@@ -1,3 +1,5 @@
+import Rating from "@mui/material/Rating";
+
 export interface ReviewProps {
     username: string;
     rating: number;
@@ -12,7 +14,7 @@ export interface ReviewProps {
     return (
       <div className="review-box">
         <h2>{username}</h2>
-        <h2>{rating}/5</h2>
+        <Rating name="read-only" value={rating} readOnly />
         <div className="destination-info">
           <h3>{review}</h3>
         </div>
