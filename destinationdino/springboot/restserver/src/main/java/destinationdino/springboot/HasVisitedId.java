@@ -3,13 +3,13 @@ package destinationdino.springboot;
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
+//import jakarta.persistence.Column;
 
 public class HasVisitedId implements Serializable {
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private String user;
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private String destination;
 
     public HasVisitedId() {
