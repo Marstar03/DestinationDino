@@ -1,12 +1,11 @@
 import "./App.css";
 import Navbar from "./Navbar";
 import Admin from "./components/Admin";
-import DestinationBox from "./components/DestinationBox";
-import DestinationInfoPage from "./components/DestinationInfoPage";
 import About from "./pages/About";
 import DestinationInformation from "./pages/DestinationInformation";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import ProfileReviewPage from "./pages/ProfileReviewPage";
 import ReviewPage from "./pages/ReviewPage";
 import SignInSide from "./pages/SignInSide";
 import SignUpSide from "./pages/SignUpSide";
@@ -31,6 +30,7 @@ function App() {
         {/* <Route path="/DestinationInformation/" element={<DestinationInformation />} /> */}
         <Route path="/DestinationInformation/:name" element={<DestinationInformation />} />
         <Route path="/ReviewPage/:name" element={<ReviewPage />} />
+        <Route path="/ProfileReviewPage/:name" element={<ProfileReviewPage />} />
 
       </Routes>
       

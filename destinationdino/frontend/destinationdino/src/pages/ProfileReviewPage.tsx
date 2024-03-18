@@ -6,8 +6,8 @@ import TextField from "@mui/material/TextField";
 import { reviewPostRequest } from "../httpMethods/reviewPostRequest";
 import { UserProfileProps } from "../components/UserProfile";
 import RatingStars from "../components/RatingStars";
-import { useParams, useNavigate } from "react-router-dom";
-
+import { Link, Route, useParams, useNavigate } from "react-router-dom";
+import { ReviewProps } from "../components/ReviewBox";
 
 interface ReviewFormValues {
     rating: number;
@@ -56,7 +56,6 @@ export default function ReviewPage() {
         const rating = parseInt(ratingString);
         const review = data.get("review") as string;
         //const name = data.get("name") as string;
-        console.log("rating: ", rating);
         if (rating <= 0 || Number.isNaN(rating)) {
             console.log("Rating is required");
             window.alert("Rating is required");
@@ -85,10 +84,11 @@ export default function ReviewPage() {
           review: "",
           //name: "",
         });
-        navigate(`/DestinationInformation/${encodeURIComponent(name.trim())}`);
+        navigate('/profile');
       };
     
       const [currentUser, setCurrentUser] = useState<UserProfileProps | null>(null);
+      const [reviews, setReviews] = useState<ReviewProps[]>([]); // Add this line
     
       useEffect(() => {
         async function fetchData() {
@@ -100,6 +100,20 @@ export default function ReviewPage() {
             }
             const userData = await response.json();
             setCurrentUser(userData);
+
+            // Fetch reviews after currentUser is set
+            const reviewsResponse = await fetch(`http://localhost:8080/hasVisited/user?username=${userData.username}`);
+            const reviewsData = await reviewsResponse.json();
+            const filteredReviews = reviewsData.filter((hasVisited: any) => hasVisited.destination.name === name);
+            const reviews = filteredReviews.map((hasVisited: any) => ({
+            destinationId: hasVisited.destination.name,
+            rating: hasVisited.rating,
+            review: hasVisited.review
+            }));
+            setReviews(reviews);
+            formValues.rating = reviews[0].rating;
+            formValues.review = reviews[0].review;
+
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -114,7 +128,7 @@ export default function ReviewPage() {
     return (
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <h2>Rating for {name}</h2>
-        <RatingStars onRatingChange={handleRatingChange} rating={0}/>        
+        <RatingStars onRatingChange={handleRatingChange} rating={formValues.rating}/>        
         <TextField
             margin="normal"
             required
@@ -134,7 +148,7 @@ export default function ReviewPage() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
         >
-            Add Review
+            Edit Review
         </Button>
         </Box>
     );
