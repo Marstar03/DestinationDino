@@ -13,10 +13,11 @@ export interface RadioButtonsProps {
   label2: string;
   groupName: string;
   three: boolean;
+  startValue: boolean;
   onChange: (value: string) => void; // Add onChange prop
 }
 
-const AdminRadioButtons: React.FC<RadioButtonsProps> = ({ labelName, labId, label1, label2, groupName, three, onChange }) => {
+const AdminRadioButtons: React.FC<RadioButtonsProps> = ({ labelName, labId, label1, label2, groupName, three, startValue, onChange }) => {
   
   function handleChange(event: ChangeEvent<HTMLInputElement>, value: string): void {
     console.log("Radio button endret verdi til: ", value);
@@ -44,6 +45,7 @@ const AdminRadioButtons: React.FC<RadioButtonsProps> = ({ labelName, labId, labe
         <FormLabel id={labId}>{labelName}</FormLabel>
             <RadioGroup
               defaultValue={true}
+              value={startValue}
               name={groupName}
               id={groupName}
               onChange={handleChange}

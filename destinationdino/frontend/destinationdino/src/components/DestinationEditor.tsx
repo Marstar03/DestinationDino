@@ -5,6 +5,12 @@ import TextField from "@mui/material/TextField";
 import { postRequest } from "../httpMethods/postRequest";
 import { UserProfileProps } from "./UserProfile";
 import AdminRadioButtons, { RadioButtonsProps } from "./RadioButtons";
+import { getRequest } from '../httpMethods/getRequest';
+import DestinationGrid from "./DestinationGrid";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import { DestinationProps } from "./DestinationBox";
+import Destination, { StandardDestinationProps } from "./Destination";
 
 interface AdminFormValues {
   name: string;
@@ -17,7 +23,7 @@ interface AdminFormValues {
   isCoast: boolean;
 }
 
-const Admin: React.FC = () => {
+const DestinationEditor: React.FC = () => {
   const [formValues, setFormValues] = useState<AdminFormValues>({
     name: "",
     country: "",
@@ -29,15 +35,32 @@ const Admin: React.FC = () => {
     isCoast: true,
   });
 
+  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("her?");
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
   const [cityValue, setCityValue] = useState(true);
   const [warmValue, setWarmValue] = useState(true);
   const [norwayValue, setNorwayValue] = useState(true);
   const [coastValue, setCoastValue] = useState(true);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("her?");
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+  const handleChangeSelect = (event: SelectChangeEvent<String>) => {
+    console.log("select ble endret--------------------");
+    console.log(event.target);
+    const value = event.target.value;
+    console.log(value);
+    const destination = currentDestinations?.find((Destination) => Destination.name == value);
+    console.log(destination);
+    setFormValues({ ...formValues, name: value.toString(), country: destination?.country, information: destination?.info, imageUrl: destination?.picture, isCity: destination?.city, isWarm: destination?.warm, isCoast: destination?.coast, isNorway: destination?.norway });
+    setCityValue(destination?.city);
+    setWarmValue(destination?.warm);
+    console.log(warmValue);
+    setNorwayValue(destination?.norway);
+    setCoastValue(destination?.coast);
+    // console.log(formValues);
   };
 
   // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,8 +93,8 @@ const Admin: React.FC = () => {
     console.log(isNorway);
     console.log(isCoast);
     await postData({ name, country, picture, info, city, warm, norway, coast });
-    //console.log("Formvalues:");
-    //console.log(formValues);
+    console.log("Formvalues:");
+    console.log(formValues);
     setFormValues({
       name: "",
       country: "",
@@ -82,6 +105,11 @@ const Admin: React.FC = () => {
       isNorway: true,
       isCoast: true,
     });
+    setCityValue(true);
+    setWarmValue(true);
+    setNorwayValue(true);
+    setCoastValue(true);
+    setRunEffect(true);
   };
 
   const [currentUser, setCurrentUser] = useState<UserProfileProps | null>(null);
@@ -103,6 +131,36 @@ const Admin: React.FC = () => {
     fetchData();
   }, []); // Empty dependency array ensures the effect runs only once on component mount
 
+  const initialData: StandardDestinationProps[] = [];
+  const [currentDestinations, setCurrentDestinations] = useState<StandardDestinationProps[] | null>(initialData);
+
+  const [runEffect, setRunEffect] = useState(true);
+  // const [startEffect, setStartEffect] = useState(true);
+
+  useEffect(() => {
+    if (runEffect) {
+      setRunEffect(false)
+      console.log("Oppdaterer destination data på nytt fra server");
+      async function fetchData() {
+        try {
+          const apiUrl = `http://localhost:8080/destinations`;
+          const response = await fetch(apiUrl);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const destinationData = await response.json();
+          console.log("Rådata:", {destinationData});
+          setCurrentDestinations(destinationData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+      fetchData();
+    }
+  }, [runEffect]); // Empty dependency array ensures the effect runs only once on component mount
+
+  console.log(currentDestinations?.find((Destination) => Destination.name == "Paris")?.country);
+  console.log(currentDestinations?.filter((Destination) => Destination.name != "").forEach(Destination => console.log(Destination.name)));
   console.log(currentUser);
   console.log(currentUser?.admin);
 
@@ -167,19 +225,26 @@ const Admin: React.FC = () => {
   } else {
     return (
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <h2>Add new destination</h2>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="name"
-          label="Destination Name"
-          name="name"
-          autoComplete="name"
-          autoFocus
-          value={formValues.name}
-          onChange={handleChange}
-        />
+        <h2>Edit Destination</h2>
+        <FormControl fullWidth required>
+          <InputLabel id="demo-simple-select-label">Destination name</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="name"
+            label="Destination name"
+            name="name"
+            autoComplete="name"
+            autoFocus
+            value={formValues.name}
+            onChange={handleChangeSelect}
+          >
+            {currentDestinations?.map((Destination) => (
+              <MenuItem key={Destination.name} value={Destination.name}>
+                {Destination.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <TextField
           margin="normal"
           required
@@ -236,4 +301,4 @@ const Admin: React.FC = () => {
   }
 };
 
-export default Admin;
+export default DestinationEditor;
