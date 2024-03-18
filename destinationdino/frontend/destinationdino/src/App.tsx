@@ -4,6 +4,7 @@ import AdminPage from "./pages/AdminPage";
 import AddDestination from "./pages/AddDestination";
 import EditDestination from "./pages/EditDestination";
 import About from "./pages/About";
+import DestinationInformation from "./pages/DestinationInformation";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import SignInSide from "./pages/SignInSide";
@@ -26,6 +27,13 @@ function App() {
           <Route path="/Admin/EditDestination" element={<EditDestination />} />
         </Routes>
       </div>
+      
+      <Routes>
+        {/* <Route path="/DestinationInformation/" element={<DestinationInformation />} /> */}
+        <Route path="/DestinationInformation/:name" element={<DestinationInformation />} />
+
+      </Routes>
+      
     </>
   );
 }
