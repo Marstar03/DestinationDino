@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { UserProfileProps } from "./UserProfile";
 
 export interface DestinationProps {
+  id: (string | number) | null | undefined;
+  isAd: any;
   name: string;
   country: string;
   picture: string;

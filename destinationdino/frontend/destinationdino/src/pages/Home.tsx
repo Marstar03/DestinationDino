@@ -100,9 +100,9 @@ export default function Home() {
         return <div>Loading destinations...</div>;
     }
 
-    if (error) {
-        return <div>Error fetching destinations: {error}</div>;
-    }
+  if (error) {
+    return <div>Error fetching destinations: {error}</div>;
+  }
 
     return (
       <div>
