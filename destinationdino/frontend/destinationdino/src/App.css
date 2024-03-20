@@ -54,3 +54,26 @@
 .review-button {
   border: 1px solid #ccc;
 }
+.radioButtonsTesting {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+
+.radioPair {
+  padding: 25px;
+}
+
+.adminChoice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.adminButtonChoice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 5%;
+}

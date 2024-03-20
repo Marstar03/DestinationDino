@@ -18,6 +18,12 @@ public class Destination {
     private String country;
     private String picture;
     private String info;
+    private boolean isCity;
+    private boolean isWarm;
+    private boolean isNorway;
+    private boolean isCoast;
+
+
 
     public Destination() {
         
@@ -32,6 +38,17 @@ public class Destination {
         setCountry(country);
         setPicture(picture);
         setInfo(info);
+    }
+
+    public Destination(String name, String country, String picture, String info, boolean isCity, boolean isWarm, boolean isNorway, boolean isCoast) {
+        setName(name);
+        setCountry(country);
+        setPicture(picture);
+        setInfo(info);
+        setCity(isCity);
+        setWarm(isWarm);
+        setNorway(isNorway);
+        setCoast(isCoast);
     }
 
 
@@ -71,5 +88,38 @@ public class Destination {
         this.info = info;
     }
 
+    public boolean isCity() {
+        return isCity;
+    }
+
+    public void setCity(boolean isCity) {
+        this.isCity = isCity;
+    }
+
+    public boolean isWarm() {
+        return isWarm;
+    }
+
+    public void setWarm(boolean isWarm) {
+        this.isWarm = isWarm;
+    }
+
+    public boolean isNorway() {
+        return isNorway;
+    }
+
+    public void setNorway(boolean isNorway) {
+        this.isNorway = isNorway;
+    }
+
+    public boolean isCoast() {
+        return isCoast;
+    }
+
+    public void setCoast(boolean isCoast) {
+        this.isCoast = isCoast;
+    }
+
+    
     
 }

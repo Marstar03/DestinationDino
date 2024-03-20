@@ -1,6 +1,8 @@
 import "./App.css";
 import Navbar from "./Navbar";
-import Admin from "./components/Admin";
+import AdminPage from "./pages/AdminPage";
+import AddDestination from "./pages/AddDestination";
+import EditDestination from "./pages/EditDestination";
 import About from "./pages/About";
 import DestinationInformation from "./pages/DestinationInformation";
 import Home from "./pages/Home";
@@ -22,7 +24,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/SigninSide" element={<SignInSide />} />
           <Route path="/SignupSide" element={<SignUpSide />} />
-          <Route path="/Admin" element={<Admin />} />
+          <Route path="/Admin" element={<AdminPage />} />
+          <Route path="/Admin/AddDestination" element={<AddDestination />} />
+          <Route path="/Admin/EditDestination" element={<EditDestination />} />
         </Routes>
       </div>
       
