@@ -3,7 +3,10 @@ import UserProfile, { UserProfileProps } from "../components/UserProfile";
 import Button from "../components/LogoutButton";
 import { ReviewProps } from "../components/ProfileReviewBox";
 import BoxForProfileReviews from "../components/BoxForProfileReviews";
-import {Attraction, GridContainer} from '../components/DestinationInfoPageCSS';
+import {
+  Attraction,
+  GridContainer,
+} from "../components/DestinationInfoPageCSS";
 
 //import profilePicture from "../assets/TravellingDino.jpg";
 
@@ -39,15 +42,18 @@ const Profile: React.FC = () => {
         setCurrentUser(userData);
 
         // Fetch reviews after currentUser is set
-        const reviewsResponse = await fetch(`http://localhost:8080/hasVisited/user?username=${userData.username}`);
+        const reviewsResponse = await fetch(
+          `http://localhost:8080/hasVisited/user?username=${userData.username}`
+        );
         const reviewsData = await reviewsResponse.json();
-        const reviews = reviewsData.map((hasVisited: any) => ({
-          destinationId: hasVisited.destination.name,
-          rating: hasVisited.rating,
-          review: hasVisited.review
-        }));
+        const reviews = reviewsData
+          .filter((hasVisited: any) => hasVisited.rating !== -1)
+          .map((hasVisited: any) => ({
+            destinationId: hasVisited.destination.name,
+            rating: hasVisited.rating,
+            review: hasVisited.review,
+          }));
         setReviews(reviews);
-        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -68,7 +74,7 @@ const Profile: React.FC = () => {
         <UserProfile {...currentUser} />
         <Button />
         <Attraction>
-          <BoxForProfileReviews title="Reviews" reviews={reviews}/>
+          <BoxForProfileReviews title="Reviews" reviews={reviews} />
         </Attraction>
       </GridContainer>
     </div>
