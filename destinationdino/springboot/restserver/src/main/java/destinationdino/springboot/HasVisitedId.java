@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class HasVisitedId implements Serializable {
 
-    //@Column(nullable = false)
+    // @Column(nullable = false)
     private String user;
-    //@Column(nullable = false)
+    // @Column(nullable = false)
     private String destination;
 
     public HasVisitedId() {
@@ -55,4 +55,3 @@ public class HasVisitedId implements Serializable {
     }
 
 }
-

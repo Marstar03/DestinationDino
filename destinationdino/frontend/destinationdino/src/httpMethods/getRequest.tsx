@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 
-export function getRequest(apiUrl: any) {
-    const [data, setData] = useState(null);
+export function getRequest(apiUrl: string) {
+    interface Data {
+        info: string;
+        name: string;
+        country: string;
+        picture: string;
+      }
+    const [data, setData] = useState<Data | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 

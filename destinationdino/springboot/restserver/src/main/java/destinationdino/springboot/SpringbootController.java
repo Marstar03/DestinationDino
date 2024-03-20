@@ -80,19 +80,39 @@ public class SpringbootController {
 
     @GetMapping("/userHasVisited")
     public Boolean getAllHasVisited(@RequestParam String destinationName) {
+        System.out.println(destinationName + " " + userService.getCurrentUser().getUsername());
         return hasVisitedService.checkIfHasVisited(destinationName, userService.getCurrentUser().getUsername());
     }
 
-    @PostMapping("/addHasVisited")
-    public Boolean createHasVisited(@RequestParam Destination destination) {
-        HasVisited newVisit = new HasVisited(userService.getCurrentUser(), destination);
+    @RequestMapping("/addHasVisited")
+    public Boolean createHasVisited(@RequestParam String destinationName) {
+        System.out.println(destinationName);
+        Optional<Destination> destination = destinationService.getDestinationByID(destinationName);
+        if (destination.isEmpty()) {
+            return false;
+        }
+        Destination specificDestination = destination.get();
+
+        HasVisited newVisit = new HasVisited(userService.getCurrentUser(), specificDestination);
+        System.out.println(newVisit.getUser().getUsername() + " " + newVisit.getDestination().getName() + " "
+                + newVisit.getRating() + " " + newVisit.getReview());
         hasVisitedService.createHasVisited(newVisit);
+        System.out.println("hasVisited added successfully");
         return true;
     }
 
-    @PostMapping("/removeHasVisited")
-    public Boolean removeHasVisited(@RequestParam Destination destination) {
-        HasVisited oldVisit = new HasVisited(userService.getCurrentUser(), destination);
+    @RequestMapping("/removeHasVisited")
+    public Boolean removeHasVisited(@RequestParam String destinationName) {
+        System.out.println(destinationName);
+        Optional<Destination> destination = destinationService.getDestinationByID(destinationName);
+        if (destination.isEmpty()) {
+            return false;
+        }
+        Destination specificDestination = destination.get();
+
+        HasVisited oldVisit = new HasVisited(userService.getCurrentUser(), specificDestination);
+        System.out.println(oldVisit.getUser().getUsername() + " " + oldVisit.getDestination().getName() + " "
+                + oldVisit.getRating() + " " + oldVisit.getReview());
         return hasVisitedService.removeHasVisited(oldVisit);
     }
 
@@ -101,8 +121,8 @@ public class SpringbootController {
         return destinationService.deleteAll();
     }
 
-
-    // Metode som brukes både for å lage ny review og for å oppdatere en eksisterende review
+    // Metode som brukes både for å lage ny review og for å oppdatere en
+    // eksisterende review
     @PostMapping("/hasVisited")
     public Boolean addReview(@RequestBody JsonReviewData jsonReviewData) {
         Optional<Destination> specificDestination = destinationService.getDestinationByID(jsonReviewData.getName());
@@ -112,10 +132,12 @@ public class SpringbootController {
         Destination destination = specificDestination.get();
 
         User currentUser = userService.getCurrentUser();
-        System.out.println(currentUser.getUsername() + " " + destination.getName() + " " + jsonReviewData.getRating() + " " + jsonReviewData.getReview());
+        System.out.println(currentUser.getUsername() + " " + destination.getName() + " " + jsonReviewData.getRating()
+                + " " + jsonReviewData.getReview());
 
         if (destination != null && currentUser != null) {
-            HasVisited newVisit = new HasVisited(currentUser, destination, jsonReviewData.getRating(), jsonReviewData.getReview());
+            HasVisited newVisit = new HasVisited(currentUser, destination, jsonReviewData.getRating(),
+                    jsonReviewData.getReview());
             hasVisitedService.createHasVisited(newVisit);
             System.out.println("hasVisited added successfully");
         }
@@ -124,12 +146,14 @@ public class SpringbootController {
 
     @GetMapping("/hasVisited/destination")
     public List<HasVisited> getHasVisitedByDestination(@RequestParam String name) {
-        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getDestination().getName().equals(name)).toList();
+        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getDestination().getName().equals(name))
+                .toList();
     }
 
     @GetMapping("/hasVisited/user")
     public List<HasVisited> getHasVisitedByUser(@RequestParam String username) {
-        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getUser().getUsername().equals(username)).toList();
+        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getUser().getUsername().equals(username))
+                .toList();
     }
 
 }

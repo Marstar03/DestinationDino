@@ -13,7 +13,7 @@ public class JsonReviewData {
         this.rating = rating;
         this.review = review;
     }
-    
+
     public String getName() {
         return name;
     }

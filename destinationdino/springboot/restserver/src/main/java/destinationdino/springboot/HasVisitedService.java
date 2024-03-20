@@ -45,9 +45,12 @@ public class HasVisitedService {
         return result.isPresent();
     }
 
-/*     @Transactional
-    public void updateReview(String username, String destinationName, int rating, String review) {
-        hasVisitedRepository.findById(username, destinationName);
-    } */
+    /*
+     * @Transactional
+     * public void updateReview(String username, String destinationName, int rating,
+     * String review) {
+     * hasVisitedRepository.findById(username, destinationName);
+     * }
+     */
 
 }

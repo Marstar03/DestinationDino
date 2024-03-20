@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Table(name = "hasVisited")
 @IdClass(HasVisitedId.class)
 public class HasVisited {
-    
+
     @Id
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -74,6 +74,5 @@ public class HasVisited {
     public void setReview(String review) {
         this.review = review;
     }
-    
 
 }
