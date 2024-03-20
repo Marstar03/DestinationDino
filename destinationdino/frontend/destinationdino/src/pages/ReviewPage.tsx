@@ -7,6 +7,7 @@ import { reviewPostRequest } from "../httpMethods/reviewPostRequest";
 import { UserProfileProps } from "../components/UserProfile";
 import RatingStars from "../components/RatingStars";
 import { useParams, useNavigate } from "react-router-dom";
+import { ReviewProps } from "../components/ReviewBox";
 
 
 interface ReviewFormValues {
@@ -21,6 +22,12 @@ export default function ReviewPage() {
     const navigate = useNavigate();
 
     const [formValues, setFormValues] = useState<ReviewFormValues>({
+        rating: 0,
+        review: "",
+        //name: "",
+      });
+
+    const [savedFormValues, setSavedFormValues] = useState<ReviewFormValues>({
         rating: 0,
         review: "",
         //name: "",
@@ -62,6 +69,10 @@ export default function ReviewPage() {
             window.alert("Rating is required");
             return;
         }
+        if (savedFormValues.rating != -1) {
+          window.alert("You have already reviewed this destination. \nGo to profile page to edit existing review.");
+          return;
+        }
         /* console.log(name);
         console.log(rating);
         console.log(review);
@@ -89,6 +100,7 @@ export default function ReviewPage() {
       };
     
       const [currentUser, setCurrentUser] = useState<UserProfileProps | null>(null);
+      const [reviews, setReviews] = useState<ReviewProps[]>([]); // Add this line
     
       useEffect(() => {
         async function fetchData() {
@@ -100,6 +112,19 @@ export default function ReviewPage() {
             }
             const userData = await response.json();
             setCurrentUser(userData);
+
+            const reviewsResponse = await fetch(`http://localhost:8080/hasVisited/user?username=${userData.username}`);
+            const reviewsData = await reviewsResponse.json();
+            const filteredReviews = reviewsData.filter((hasVisited: any) => hasVisited.destination.name === name);
+            const reviews = filteredReviews.map((hasVisited: any) => ({
+            destinationId: hasVisited.destination.name,
+            rating: hasVisited.rating,
+            review: hasVisited.review
+            }));
+            setReviews(reviews);
+            savedFormValues.rating = reviews[0].rating;
+            savedFormValues.review = reviews[0].review;
+
           } catch (error) {
             console.error("Error fetching data:", error);
           }

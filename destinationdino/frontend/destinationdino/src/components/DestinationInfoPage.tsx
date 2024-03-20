@@ -6,6 +6,18 @@ import { createGlobalStyle } from 'styled-components';
 import { useParams } from 'react-router-dom';
 import BoxForDestinationReviews from './BoxForDestinationReviews';
 import { ReviewProps } from './ReviewBox';
+import {
+  GlobalStyle,
+  GridContainer,
+  Picture,
+  Heading,
+  Title,
+  Score,
+  Rating,
+  Check,
+  Description,
+  Attraction,
+} from "./DestinationInfoPageCSS";
 
 
 
