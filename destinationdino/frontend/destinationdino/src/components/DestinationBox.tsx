@@ -47,7 +47,7 @@ const DestinationBox: React.FC<DestinationProps> = ({
         <div className="destination-info">
           <h3>{name}</h3>
           <h4>{country}</h4>
-          <span className="destination-rating">{3.5}/5</span>
+          <span className="destination-rating"></span>
         </div>
       </div>
     );
