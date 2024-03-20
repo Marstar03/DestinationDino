@@ -78,9 +78,58 @@ public class SpringbootController {
         return userService.removeCurrentUser();
     }
 
+    @GetMapping("/userHasVisited")
+    public Boolean getAllHasVisited(@RequestParam String destinationName) {
+        return hasVisitedService.checkIfHasVisited(destinationName, userService.getCurrentUser().getUsername());
+    }
+
+    @PostMapping("/addHasVisited")
+    public Boolean createHasVisited(@RequestParam Destination destination) {
+        HasVisited newVisit = new HasVisited(userService.getCurrentUser(), destination);
+        hasVisitedService.createHasVisited(newVisit);
+        return true;
+    }
+
+    @PostMapping("/removeHasVisited")
+    public Boolean removeHasVisited(@RequestParam Destination destination) {
+        HasVisited oldVisit = new HasVisited(userService.getCurrentUser(), destination);
+        return hasVisitedService.removeHasVisited(oldVisit);
+    }
+
     @RequestMapping("/deleteAllDestinations")
     public ResponseEntity<String> wipeDatabase() {
         return destinationService.deleteAll();
+    }
+
+
+    // Metode som brukes både for å lage ny review og for å oppdatere en eksisterende review
+    @PostMapping("/hasVisited")
+    public Boolean addReview(@RequestBody JsonReviewData jsonReviewData) {
+        Optional<Destination> specificDestination = destinationService.getDestinationByID(jsonReviewData.getName());
+        if (specificDestination.isEmpty()) {
+            return false;
+        }
+        Destination destination = specificDestination.get();
+
+        User currentUser = userService.getCurrentUser();
+        System.out.println(currentUser.getUsername() + " " + destination.getName() + " " + jsonReviewData.getRating() + " " + jsonReviewData.getReview());
+
+        if (destination != null && currentUser != null) {
+            HasVisited newVisit = new HasVisited(currentUser, destination, jsonReviewData.getRating(), jsonReviewData.getReview());
+            hasVisitedService.createHasVisited(newVisit);
+            System.out.println("hasVisited added successfully");
+        }
+        return true;
+    }
+
+    @GetMapping("/hasVisited/destination")
+    public List<HasVisited> getHasVisitedByDestination(@RequestParam String name) {
+        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getDestination().getName().equals(name)).toList();
+    }
+
+    @GetMapping("/hasVisited/user")
+    public List<HasVisited> getHasVisitedByUser(@RequestParam String username) {
+        return hasVisitedService.getAllHasVisiteds().stream().filter(hv -> hv.getUser().getUsername().equals(username)).toList();
     }
 
 }

@@ -38,6 +38,22 @@
   
 }
 
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+  padding: 16px;
+}
+
+.review-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.review-button {
+  border: 1px solid #ccc;
+}
 .radioButtonsTesting {
   display: flex;
   flex-direction: row;
