@@ -1,9 +1,11 @@
-import React from "react";
-import BoxForDestinationInfo from "./BoxForDestinationInfo";
-import { getRequest } from "../httpMethods/getRequest";
-import { useParams } from "react-router-dom";
-import CustomCheckbox from "./CheckBox";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import BoxForDestinationInfo from './BoxForDestinationInfo';
+import { getRequest } from '../httpMethods/getRequest';
+import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+import { useParams } from 'react-router-dom';
+import BoxForDestinationReviews from './BoxForDestinationReviews';
+import { ReviewProps } from './ReviewBox';
 import {
   GlobalStyle,
   GridContainer,
@@ -16,20 +18,39 @@ import {
   Description,
   Attraction,
 } from "./DestinationInfoPageCSS";
-import { UserProfileProps } from "./UserProfile";
+
+
 
 const DestinationInfoPage: React.FC = () => {
   const { name } = useParams();
-  const apiUrl = `http://localhost:8080/destinationInfo?id=${encodeURIComponent(
-    name as string
-  )}`;
-
+  const [reviews, setReviews] = useState<ReviewProps[]>([]); // Add this line
+  const apiUrl = `http://localhost:8080/destinationInfo?id=${encodeURIComponent(name)}`;
   const { data, loading, error } = getRequest(apiUrl);
-  if (!data) {
-    // Loading state
-    if (loading) {
-      return <div>Loading...</div>;
-    }
+  //console.log(name);
+  const [avgRating, setAvgRating] = useState<number>(0);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/hasVisited/destination?name=${name}`)
+        .then(response => response.json())
+        .then(data => {
+            const reviews = data.map((hasVisited: any) => ({
+                username: hasVisited.user.username,
+                rating: hasVisited.rating,
+                review: hasVisited.review
+            }));
+            setReviews(reviews);
+            // Compute the average rating
+            const totalRating = reviews.reduce((total: number, review: ReviewProps) => total + review.rating, 0);
+            const avgRating = parseFloat((totalRating / reviews.length).toFixed(1));
+            setAvgRating(avgRating);
+        })
+        .catch(error => console.error('Error:', error));
+  }, [data]);
+
+  // Loading state
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
     // Error state
     if (error) {
@@ -53,7 +74,7 @@ const DestinationInfoPage: React.FC = () => {
           </Title>
           <Score>
             <Rating>
-              {data && <BoxForDestinationInfo title="Rating" content="3.5" />}
+              {data && <BoxForDestinationInfo title="Rating" content={`${avgRating}/5`} />}
             </Rating>
             <Check>
               <CustomCheckbox destinationId={name as string} />
@@ -70,10 +91,7 @@ const DestinationInfoPage: React.FC = () => {
         </Description>
         <Attraction>
           {data && (
-            <BoxForDestinationInfo
-              title="Review"
-              content="Review Function Coming Soon"
-            />
+          <BoxForDestinationReviews title="Reviews" name={data.name} reviews={reviews}/>
           )}
         </Attraction>
       </GridContainer>

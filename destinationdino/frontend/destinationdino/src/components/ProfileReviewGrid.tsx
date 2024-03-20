@@ -1,5 +1,5 @@
 import React from "react";
-import ReviewBox, { ReviewProps } from "./ReviewBox";
+import ProfileReviewBox, { ReviewProps } from "./ProfileReviewBox";
 
 interface ReviewGridProps {
   reviews: ReviewProps[];
@@ -9,7 +9,7 @@ const ReviewGrid: React.FC<ReviewGridProps> = ({ reviews }) => {
   return (
     <div className="review-grid">
       {reviews.map((review, index) => (
-        <ReviewBox key={index} {...review} />
+        <ProfileReviewBox key={index} {...review} />
       ))}
     </div>
   );

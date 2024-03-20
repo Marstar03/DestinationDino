@@ -25,7 +25,7 @@ const pictures = [
 const UserProfile: React.FC<UserProfileProps> = ({ username, email, profilePicture }) => {
   const picture = pictures.find(picture => picture.id === profilePicture);
   return (
-    <div className="user-profile-container" style={{ position: 'absolute', top: 100, left: 100 }}>
+    <div className="user-profile-container" >
       <div className="user-profile" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         {picture && (
         <img
