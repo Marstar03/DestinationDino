@@ -77,3 +77,49 @@
   justify-content: center;
   margin: 5%;
 }
+
+.weatherBox {
+  background-color: rgb(105, 152, 165);
+  height: 300;
+  width: 300;
+  display: flex;
+  align-Items: center;
+  flex-direction: column;
+  gap: 4;
+  padding: 5px;
+  border: 2px solid rgb(47, 69, 76);
+  color: aliceblue;
+}
+
+.weatherIconBox {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 100%;
+  min-width: 250px;
+}
+
+.weatherInfoBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 100%;
+}
+
+.weatherInfoBox> * {
+  padding-inline: 10px;
+}
+
+.windDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.windDisplay > * {
+  padding: 5px;
+}

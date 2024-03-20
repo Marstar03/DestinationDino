@@ -19,6 +19,7 @@ import {
   Attraction,
 } from "./DestinationInfoPageCSS";
 import CustomCheckbox from "./CheckBox";
+import Weather, { WeatherProps } from "./Weather";
 
 const DestinationInfoPage: React.FC = () => {
   const { name } = useParams();
@@ -64,6 +65,10 @@ const DestinationInfoPage: React.FC = () => {
     return <div>Error!</div>;
   }
 
+  const weatherDest: WeatherProps = {
+    destination: name || "Trondheim"
+  };
+
   return (
     <div>
       <GlobalStyle />
@@ -100,6 +105,7 @@ const DestinationInfoPage: React.FC = () => {
             />
           )}
         </Description>
+        <Weather {...weatherDest}/>
         <Attraction>
           {data && (
             <BoxForDestinationReviews
